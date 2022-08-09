@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { ColorsContext } from "../ColorsContext";
+import ColorPalette from "./ColorPalette";
 
 const HomePage = () => {
     const {colors, setColors} = useContext(ColorsContext);
@@ -7,12 +8,8 @@ const HomePage = () => {
     return (
     <div>
      <h1>Random color palette</h1>   
-        {colors?.map((color) => {
-            return <div>{color}</div>
-        })}
+        <ColorPalette/>
     </div>
-
-    
     )
 }
 
