@@ -39,8 +39,10 @@ const ActionBar = ({color}) => {
     }
 
     return (<Wrapper>
+        <IoMdHeartEmpty onClick={()=>}/>
+        <IoMdHeart/>
 
-        <ColorNavBar>
+        {/* <ColorNavBar>
                 { isLiked ? 
                 <IoMdHeart onClick={toggleLike} size={iconSize}/> 
                 : 
@@ -52,7 +54,7 @@ const ActionBar = ({color}) => {
                 }
                 <MdOutlineClear size={iconSize}/>
 
-        </ColorNavBar>
+        </ColorNavBar> */}
 
     </Wrapper>)
 }

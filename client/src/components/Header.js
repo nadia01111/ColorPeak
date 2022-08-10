@@ -23,7 +23,7 @@ const Header = () => {
             </Div1>
           
             
-            <H1>best color palette generator</H1>
+            <H1> Color palette generator</H1>
         
             {isAuthenticated?<button >{user.name}</button>:null }
             {isAuthenticated? <button onClick={() => logout({ returnTo: window.location.origin })}>
@@ -55,7 +55,7 @@ height:150px;
 .rss.opacity { filter: opacity(50%); } */
 `
 
-const H1 = styled.h1``;
+const H1 = styled.h2``;
 const Wrapper = styled.div`
 margin-left: 20px;
 margin-right: 20px;
