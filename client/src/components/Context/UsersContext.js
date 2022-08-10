@@ -9,7 +9,9 @@ export const UsersContext = createContext(null);
             const [userData, setUserData] = useState({
                 userName: "",
                 email: "",
-                password:""
+                password:"",
+                savedColors:["#34BA3B"],
+                friends:[],
             
             });
         //for existing users (logIn)
@@ -35,6 +37,7 @@ export const UsersContext = createContext(null);
     return (
         <UsersContext.Provider
         value={{
+            userData, setUserData,
             currentUser, setCurrentUser,
             friends, setFriends,
             loading, setLoading

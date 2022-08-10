@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import GlobalStyles from "./GlobalStyles";
-import Collages from "./Collages";
+import Collages from "./Collages/Collages";
+import CreateCollage from "./Collages/CreateCollage";
 import Header from "./Header";
 import HomePage from "./HomePage/HomePage";
 import NavBar from "./NavBar";
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/account/login" element={<LogIn/>}/>
         <Route path="users/:userID" element={<UserPage/>}/>
         <Route path="/collages" element={<Collages/>}/>
+        <Route path="/collages/create" element={<CreateCollage/>}/>
      
       </Routes>
     </BrowserRouter>

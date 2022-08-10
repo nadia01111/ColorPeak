@@ -3,30 +3,34 @@ import { ColorsContext } from "../Context/ColorsContext";
 import styled from "styled-components";
 
 
+import { IoMdHeartEmpty,IoMdHeart } from "react-icons/io";
+import { AiOutlineLock,AiOutlineUnlock , AiFillLock} from "react-icons/ai"
+import { MdOutlineClear } from "react-icons/md";
+import { IoIosAddCircleOutline } from "react-icons/io";
+import ActionBar from "./ActionBar";
+
+
 const ColorPalette = () => {
-// const {colors, setColors} = useContext(ColorsContext);
+const {colors, setColors,
+    type, setType,
+    loading, setLoading,
+    isLiked, setIsLiked,
+    isLocked, setIsLocked,
+    iconSize, setIconSize,
+     } = useContext(ColorsContext);
 
-    const [colors, setColors] = useState(null);
-    const [type, setType] = useState(null);
-    const [loading, setLoading] = useState(false);
 
-    const onKeyDown = () => {
-        
-    }
-       
-    useEffect(() => {
-        const fetchColors = async () => {
-            console.log("first");
-            const response = await fetch('/api/randome-palette');
-            const fetchedColors = await response.json();
-            setType(fetchedColors.type);
-            setColors(fetchedColors.data);
-            console.log(fetchedColors.data);
-            setLoading(true);
+//press the space bar and see new palette
+    const genereteNewPalette = () => {
+   
     };
-    fetchColors();
 
-}, []);
+
+// remove color from the palette
+const removeColor = (index) => {
+    colors.splice(index,1)
+};
+
 
 if (loading === false) {
     <div>loading</div>
@@ -35,39 +39,63 @@ if (loading === false) {
     return (<Wrapper>
     
         <Wrap>
-        {colors?.splice(0,5).map((color)=> {
-            return <Color color={color}>
-                <ColorName color={color}>{color.substr(1)}</ColorName>
-                </Color>
+        {colors?.splice(0,5).map((color,index)=> {
+
+            return (<>
+         
+            <Color color={color}>
+                <ActionBar color={color}/>
+                <ColorName color={color}>{color?.substr(1)}</ColorName>
+                <StyeldIoIosAddCircleOutline  onClick={removeColor} size={iconSize}/>
+
+            </Color> 
+                
+                </>)
+
         })}
         </Wrap>
     </Wrapper>)
 }
 
+
+const StyeldIoIosAddCircleOutline = styled(IoIosAddCircleOutline)`
+position: relative;
+display: none;
+`;
 const Wrapper = styled.div`
 width: 100%;
 
 `;
 const Wrap = styled.div`
 display: flex;
-height: calc(100vh - 50px);
+height: calc(100vh - 150px);
 `;
+const ColorNavBar = styled.div`
+display: flex;
+flex-direction: column;
+
+`;
+
 const ColorName = styled.div`
+font-size:24px;
+font-weight: bold;
+margin: 5px;
+padding: 10px;
 text-transform: uppercase;
 letter-spacing: 0.03em;
-padding: 5 px 10 px;
+
 border-radius: 10px;
 :hover{
 
     border: 1px solid ${props => props.color ? props.color : "none"};
-    background-color: ${props => props.color ? props.color : "none"};
-  b
+    background-color: white;
     opacity: 50%;
 }
 `;
 
 const Color = styled.div`
 display: flex;
+flex-direction: column;
 align-items: center;
 justify-content: center;
 background-color: ${props => props.color ? props.color : "none"};

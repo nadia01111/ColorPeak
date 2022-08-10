@@ -2,9 +2,18 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
+import { useAuth0 } from '@auth0/auth0-react';
 
 const Header = () => {
-console.log(logo);
+    const {
+        isLoading,
+        isAuthenticated,
+        error,
+        user,
+        loginWithRedirect,
+        logout,
+      } = useAuth0();
+      console.log(user);
     return (
         <Wrapper>
             <Div1>
@@ -14,8 +23,12 @@ console.log(logo);
             </Div1>
           
             
-            <H1>Palette generator</H1>
-  
+            <H1>best color palette generator</H1>
+        
+            {isAuthenticated?<button >{user.name}</button>:null }
+            {isAuthenticated? <button onClick={() => logout({ returnTo: window.location.origin })}>
+          Log out
+        </button>:null}
         <LogIn to="/account/login"><h4>LogIn</h4></LogIn>
       
         </Wrapper>

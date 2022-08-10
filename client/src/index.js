@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Auth0Provider } from "@auth0/auth0-react";
 import App from './components/App';
-import { ColorsProvider } from "./components/Context/ColorsContext";
+import { ColorsContextProvider } from "./components/Context/ColorsContext";
 import { UsersProvider } from './components/Context/UsersContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -13,8 +13,11 @@ root.render(
     redirectUri={window.location.origin}
   >
    <UsersProvider>
-     <App />
+     <ColorsContextProvider>
+       <App />
+     </ColorsContextProvider>
    </UsersProvider>
+
    </Auth0Provider>  
     
 

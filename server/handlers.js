@@ -46,25 +46,7 @@ const validation = (req,res) => {
 }
 
 const getUserById = async (req,res) => {
- 
-    const client = new MongoClient(MONGO_URI, options);
-    console.log(MONGO_URI);
-    try{
-        await client.connect();
-        const db = client.db("ColorPeak");
-        console.log("connected");
-        const _id = req.params.user;
-        console.log(req);
-        const result = await db.collection("users").findOne({_id});
-        console.log(result);
-        return res.status(200).json({status:200, data: result})
-    } 
-    catch (err) {
-        return res.status(404).json({status:404, message: "user not found"})
-    } 
-    // finally {
-    // client.close();
-    // }
+
   
   };
   
