@@ -1,21 +1,7 @@
-// async function quickstart() {
-//     // Imports the Google Cloud client library
-//     const vision = require('@google-cloud/vision');
-  
-//     // Creates a client
-//     const client = new vision.ImageAnnotatorClient();
-  
-//     // Performs label detection on the image file
-//     const [result] = await client.labelDetection('./img/10888118.jpg');
-//     const labels = result.labelAnnotations;
-//     console.log('Labels:');
-//     labels.forEach(label => console.log(label.description));
-//   }
-//   quickstart();
 
 
   
-const myFunc = async () => {
+const colorRecognize = async () => {
     const vision = require('@google-cloud/vision');
 
     // Creates a client
@@ -32,4 +18,8 @@ const myFunc = async () => {
     const colors = result.imagePropertiesAnnotation.dominantColors.colors;
     colors.forEach(color => console.log(color));
 }
-myFunc();
+// colorRecognize();
+
+module.exports = {
+    colorRecognize
+};
