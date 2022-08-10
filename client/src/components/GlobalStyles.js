@@ -1,20 +1,26 @@
 import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
-  /* :root {
+  :root {
     --color-desert-sand: #E3C4A6;
-    --font-heading: 'Permanent Marker', Arial, Helvetica, sans-serif;
-    --font-body: 'Kosugi', Arial, Helvetica, sans-serif;
+    --font-heading: 'Raleway', sans-serif;
+    --font-body: 'Poppins', sans-serif;
     --padding-page: 24px;
-  } */
+  }
 
   /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
 */
 
-html, body, div, span, applet, object, iframe,
-/* h1, h2, h3, h4, h5, h6, */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Raleway', sans-serif;
+}
+div{
+  font-family: 'Inter', sans-serif;
+  /* font-family:'Nunito', sans-serif; */
+}
+html, body, span, applet, object, iframe,
  p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
@@ -27,6 +33,7 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
+ 
 	margin: 0;
 	padding: 0;
 	border: 0;

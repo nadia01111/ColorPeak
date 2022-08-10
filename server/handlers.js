@@ -6,7 +6,13 @@ const { MongoClient } = require("mongodb");
 require("dotenv").config();
 
 const { MONGO_URI } = process.env;
-const { NEXT_PUBLIC_RAPIDAPI_KEY } = process.env;
+
+const options = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
+
+// const { NEXT_PUBLIC_RAPIDAPI_KEY } = process.env;
 
 const axios = require("axios");
 
@@ -22,11 +28,11 @@ const getRandomePalette = async (req,res) => {
 	
 
   axios.request(options).then(function (response) {
-      console.log("10",response.data.data[0].palette);
-      const type = response.data.type;
-      const paletteOfTenColors = response.data.data[0].palette;
-      ///remove duplicates using spread and set
-      const result = [... new Set(paletteOfTenColors)]
+    const type = response.data.type;
+    const paletteOfTenColors = response.data.data[0].palette;
+    console.log("10",response.data.data[0].palette);
+    ///remove duplicates using spread and set
+    const result = [... new Set(paletteOfTenColors)];
       console.log("unique",result);
       res.status(200).json({status:200, type: type, data: result});
 
@@ -35,6 +41,36 @@ const getRandomePalette = async (req,res) => {
   });
 }
 
+const validation = (req,res) => {
+//  const user = res.locals.users
+}
+
+const getUserById = async (req,res) => {
+ 
+    const client = new MongoClient(MONGO_URI, options);
+    console.log(MONGO_URI);
+    try{
+        await client.connect();
+        const db = client.db("ColorPeak");
+        console.log("connected");
+        const _id = req.params.user;
+        console.log(req);
+        const result = await db.collection("users").findOne({_id});
+        console.log(result);
+        return res.status(200).json({status:200, data: result})
+    } 
+    catch (err) {
+        return res.status(404).json({status:404, message: "user not found"})
+    } 
+    // finally {
+    // client.close();
+    // }
+  
+  };
+  
+
   module.exports = {
-    getRandomePalette
+    getRandomePalette,
+    validation,
+    getUserById
 };

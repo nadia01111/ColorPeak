@@ -6,6 +6,8 @@ const PORT = 8000;
 
 const {
     getRandomePalette,
+    validation,
+    getUserById
 } = require("./handlers");
 
 
@@ -16,7 +18,9 @@ express()
 
 /* Endpoints */
 .get("/api/randome-palette", getRandomePalette)
+.get("/api/users/:id", getUserById)
 
+.post("/api/signin", validation)
 
 // catch-all
 .get("*", (req, res) => {
