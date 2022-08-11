@@ -1,7 +1,6 @@
-import { useContext, useState , useEffect} from "react";
+import { useContext, useState , useRef, useEffect} from "react";
 import { ColorsContext } from "../Context/ColorsContext";
 import styled from "styled-components";
-
 
 import { IoMdHeartEmpty,IoMdHeart } from "react-icons/io";
 import { AiOutlineLock,AiOutlineUnlock , AiFillLock} from "react-icons/ai"
@@ -17,13 +16,25 @@ const {colors, setColors,
     isLiked, setIsLiked,
     isLocked, setIsLocked,
     iconSize, setIconSize,
+    fetchColors,
+    btnRef
      } = useContext(ColorsContext);
 
+//      const btnRef = useRef(null);
 
-//press the space bar and see new palette
-    const genereteNewPalette = () => {
-   
-    };
+//      const fetchColors = async () => {
+//         const response = await fetch('/api/randome-palette');
+//         const fetchedColors = await response.json();
+//         setType(fetchedColors.type);
+//         setColors(fetchedColors.data);
+//         setLoading(true);
+// };
+//      useEffect(() => {
+//         fetchColors();
+//         localStorage.setItem('currentPalette', JSON.stringify(colors));
+//         btnRef.current.focus();
+//         }, []);
+//     console.log(colors);
 
 
 // remove color from the palette
@@ -35,21 +46,19 @@ const removeColor = (index) => {
 if (loading === false) {
     <div>loading</div>
 }
-
-    return (<Wrapper>
-    
-        <Wrap>
+// console.log("1",isLiked);
+    return (
+    <Wrapper>
+       <Wrap>  
         {colors?.splice(0,5).map((color,index)=> {
-
             return (<>
-         
             <Color color={color}>
-                <ActionBar color={color}/>
+                {/* <ActionBar color={color}/> */}
                 <ColorName color={color}>{color?.substr(1)}</ColorName>
+
                 <StyeldIoIosAddCircleOutline  onClick={removeColor} size={iconSize}/>
 
             </Color> 
-                
                 </>)
 
         })}
@@ -62,6 +71,11 @@ const StyeldIoIosAddCircleOutline = styled(IoIosAddCircleOutline)`
 position: relative;
 display: none;
 `;
+
+const SpaceBar = styled.button`
+position: relative;
+`;
+
 const Wrapper = styled.div`
 width: 100%;
 
@@ -70,11 +84,7 @@ const Wrap = styled.div`
 display: flex;
 height: calc(100vh - 150px);
 `;
-const ColorNavBar = styled.div`
-display: flex;
-flex-direction: column;
 
-`;
 
 const ColorName = styled.div`
 font-size:24px;
@@ -105,6 +115,8 @@ top: 0px;
 left: 0%;
 transform: translate3d(0px, 0px, 0px);
 `;
+
+
 
 
 export default ColorPalette;

@@ -9,39 +9,40 @@ import { UsersContext } from "../Context/UsersContext";
 
 
 const ActionBar = ({color}) => {
-    const {colors, setColors,
-        type, setType,
-        loading, setLoading,
-        isLiked, setIsLiked,
-        isLocked, setIsLocked,
-        iconSize, setIconSize,
-         } = useContext(ColorsContext);
-
+    const { loading, setLoading, iconSize } = useContext(ColorsContext);
     const { userData, setUserData} = useContext(UsersContext);
+
+    const [isLiked, setIsLiked,] = useState(false);
+    const [isLocked, setIsLocked,] = useState(false);
+
+    const currentlyDisplayedRandomPalette = JSON.parse(localStorage.getItem(`colors`));
     
+
+    userData.savedColors.map((savedColor) => {
+        if (currentlyDisplayedRandomPalette.includes(savedColor)) {
+            return savedColor;
+        }
+    })
 // lock color on tthe palette but change other colors
     const toggleLock = (ev) => {
-        ev.preventDefault();
         setIsLocked(!isLocked);
     }
     
+    // save color to favorites (for registered users)
+  
     //toggle liked color
-     const toggleLike = (ev) => {
-        ev.preventDefault();
+     const toggleLike = () => {
         setIsLiked(!isLiked);
+        setUserData({...userData, savedColors: userData.savedColors.push(color)})
+        console.log(userData);
      }
 
-    // save color to favorites (for registered users)
-    const saveColor = () => {
-        if (isLiked === true) {
-            
-        }
-    }
 
     return (<Wrapper>
        
 
         <ColorNavBar>
+       
                 { isLiked ? 
                 <IoMdHeart onClick={toggleLike} size={iconSize}/> 
                 : 

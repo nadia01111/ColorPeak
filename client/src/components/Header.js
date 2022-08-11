@@ -41,19 +41,9 @@ const Div1 = styled.div`
 const StyeldLink = styled(Link)`
 `;
 const Img = styled.img`
-height:150px;
-
-
-/* .saturate { filter: saturate(3); }
-.grayscale { filter: grayscale(100%); }
-.contrast { filter: contrast(160%); }
-.brightness { filter: brightness(0.25); }
-.blur { filter: blur(3px); }
-.invert { filter: invert(100%); }
-.sepia { filter: sepia(100%); }
-.huerotate { filter: hue-rotate(180deg); }
-.rss.opacity { filter: opacity(50%); } */
-`
+height:100px;
+margin-left:50px;
+`;
 
 const H1 = styled.h2``;
 const Wrapper = styled.div`

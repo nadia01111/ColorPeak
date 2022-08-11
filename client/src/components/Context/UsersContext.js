@@ -10,27 +10,28 @@ export const UsersContext = createContext(null);
                 userName: "",
                 email: "",
                 password:"",
-                savedColors:["#34BA3B"],
+                savedColors:[],
                 friends:[],
             
             });
+
         //for existing users (logIn)
             const [currentUser, setCurrentUser] = useState(null);
             const [friends, setFriends] = useState(null);
             const [loading, setLoading] = useState("false");
             const { id } = useParams();
 
-            useEffect(() => {
-                fetch(`/api/users/${id}`)
-                .then ((res) => res.json())
-                .then((data)=> {
-                    console.log(data.data);
-                    // setCurrentUser(data?.data)
-            })
-                .catch((err) => {
-                    throw new Error (err.stack)
-                })
-            },[])
+            // useEffect(() => {
+            //     fetch(`/api/users/${id}`)
+            //     .then ((res) => res.json())
+            //     .then((data)=> {
+            //         console.log(data.data);
+            //         // setCurrentUser(data?.data)
+            // })
+            //     .catch((err) => {
+            //         throw new Error (err.stack)
+            //     })
+            // },[])
     
 
 

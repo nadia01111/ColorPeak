@@ -7,7 +7,7 @@ const PORT = 8000;
 const {
     getRandomePalette,
     validation,
-    getUserById
+    getUserById,
     uploadPicture
 } = require("./handlers");
 

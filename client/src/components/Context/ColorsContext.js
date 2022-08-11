@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, useRef } from "react";
 import axios from 'axios';
 export const ColorsContext = createContext(null);
 
@@ -8,22 +8,23 @@ export const ColorsContext = createContext(null);
             const [colors, setColors] = useState(null);
             const [type, setType] = useState(null);
             const [loading, setLoading] = useState(false);
-            const [isLiked, setIsLiked] = useState(false);
-            const [isLocked, setIsLocked] = useState(false);
             const [iconSize, setIconSize] = useState("24px")
  
-            useEffect(() => {
-                const fetchColors = async () => {
-                    const response = await fetch('/api/randome-palette');
-                    const fetchedColors = await response.json();
-                    setType(fetchedColors.type);
-                    setColors(fetchedColors.data);
-                    setLoading(true);
-            };
-            fetchColors();
-            
-            }, []);
-            console.log(colors);
+            const btnRef = useRef(null);
+
+     const fetchColors = async () => {
+        const response = await fetch('/api/randome-palette');
+        const fetchedColors = await response.json();
+        setType(fetchedColors.type);
+        setColors(fetchedColors.data);
+        setLoading(true);
+};
+     useEffect(() => {
+        fetchColors();
+        localStorage.setItem('currentPalette', JSON.stringify(colors));
+        btnRef.current.focus();
+        }, []);
+    console.log(colors);
 
     return (
         <ColorsContext.Provider
@@ -31,10 +32,9 @@ export const ColorsContext = createContext(null);
             colors,setColors,
             type, setType,
             loading, setLoading,
-            isLiked, setIsLiked,
-            isLocked, setIsLocked,
             iconSize, setIconSize,
-            
+            btnRef,fetchColors
+
             }}>
         {children}
         </ColorsContext.Provider>

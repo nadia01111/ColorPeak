@@ -50,16 +50,16 @@ const getUserById = async (req,res) => {
   };
   const uploadPicture = async (req,res) => {
 
-    const client = new MongoClient(MONGO_URI, options);
+    // const client = new MongoClient(MONGO_URI, options);
 
-    try {
-      await client.connect();
-      const db = client.db("ColorPeak");
-      console.log("connected");
-      const _id = uuidv4();
-      const id = req.params.reservation;
+    // try {
+    //   await client.connect();
+    //   const db = client.db("ColorPeak");
+    //   console.log("connected");
+    //   const _id = uuidv4();
+    //   const id = req.params.reservation;
 
-    }
+    // }
     
   };
   

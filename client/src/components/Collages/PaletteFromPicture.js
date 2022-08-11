@@ -5,8 +5,9 @@ const PaletteFromPicture = () => {
     const [images, setImages] = useState([]);
     const [imageURLs, setImageURLs] = useState([]);
     const [palette, setPalette] =useState(null);
-    useEffect(() => {
 
+
+    useEffect(() => {
         if (images.length<1) return;
         const newImageUrls =[];
         images.forEach((image) => {
