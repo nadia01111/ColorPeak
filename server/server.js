@@ -11,7 +11,8 @@ const {
     uploadPicture
 } = require("./handlers");
 
-const {colorRecognize} = require("./googleVisionApI")
+const {colorRecognize,
+    test} = require("./googleVisionApI")
 
 
 express()
@@ -23,9 +24,9 @@ express()
 .get("/api/randome-palette", getRandomePalette)
 .get("/api/users/:id", getUserById)
 
-.post("/api/signin", validation)
-.post("api/color-recognize",colorRecognize)
-.post("api/upload/picture",uploadPicture)
+.get("/api/test", test)
+.post("/api/color-recognize",colorRecognize)
+.post("/api/upload/picture",uploadPicture)
 
 // catch-all
 .get("*", (req, res) => {

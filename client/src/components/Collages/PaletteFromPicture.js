@@ -6,6 +6,21 @@ const PaletteFromPicture = () => {
     const [imageURLs, setImageURLs] = useState([]);
     const [palette, setPalette] =useState(null);
 
+    const myFunc = (ev) => {
+        ev.preventDefault();
+         fetch("/api/color-recognize", {
+             method: "POST",
+             headers: {
+            "Content-Type": "application/json",},
+            body: JSON.stringify({imageURLs}),
+ 
+     })
+     .then((res) => res.json())
+     .then((data) => {
+         console.log(data.data);
+        
+     })  
+    }
 
     useEffect(() => {
         if (images.length<1) return;
@@ -23,7 +38,7 @@ console.log("imagesurl", imageURLs)
     return (
         <Wrapper>
         <input type="file" multiple accept="image/*" onChange={onImageChange}/>
-        <Btn>Generate Palette</Btn>
+        <Btn onClick={myFunc}>Generate Palette</Btn>
         <CollageWrap>
         {imageURLs?.map(imageSrc => <ImgWrap><Img src={imageSrc}/></ImgWrap>)}
         <PaletteWrap>
