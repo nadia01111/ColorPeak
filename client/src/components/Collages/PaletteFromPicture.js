@@ -22,12 +22,17 @@ const PaletteFromPicture = () => {
     return (
         <Wrapper>
             <input type="file" multiple accept="image/*" onChange={onImageChange}/>
-            {imageURLs?.map(imageSrc => <img src={imageSrc}/>)}
+            {imageURLs?.map(imageSrc => <ImgWrap><Img src={imageSrc}/></ImgWrap>)}
 
         </Wrapper>)
 }
 
-
+const ImgWrap = styled.div`
+height: 300px;
+`;
+const Img = styled.img`
+height: inherit;
+`;
 
 const Wrapper = styled.div`
 `
