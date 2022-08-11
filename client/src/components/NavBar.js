@@ -35,7 +35,7 @@ background-color: transparent;
 border: none;
 text-align: center;
 :focus {
-    border: none;
+    outline: none;
 }
 `;
 

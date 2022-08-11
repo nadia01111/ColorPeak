@@ -14,6 +14,8 @@ const Header = () => {
         logout,
       } = useAuth0();
       console.log(user);
+
+      
     return (
         <Wrapper>
             <Div1>
@@ -29,8 +31,9 @@ const Header = () => {
             {isAuthenticated? <button onClick={() => logout({ returnTo: window.location.origin })}>
           Log out
         </button>:null}
-        <LogIn to="/account/login"><h4>LogIn</h4></LogIn>
-      
+
+        <LogInBtn onClick={() => loginWithRedirect()}>LogIn</LogInBtn>
+       
         </Wrapper>
     )
 }
@@ -55,11 +58,12 @@ align-items: center;
 justify-content: space-between;
 `;
 // const  = styled.div``;
-const LogIn = styled(NavLink)`
+const LogInBtn = styled.button`
+
 text-decoration: none;
-border: 1px solid black;
+border: 1px solid gray;
 border-radius: 3px;
-padding: 5px 5px;
+padding: 10px 10px;
 cursor: pointer;
   :hover {
     background-color: var(--color-black);

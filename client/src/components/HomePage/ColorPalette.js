@@ -53,7 +53,7 @@ if (loading === false) {
         {colors?.splice(0,5).map((color,index)=> {
             return (<>
             <Color color={color}>
-                {/* <ActionBar color={color}/> */}
+                <ActionBar color={color}/>
                 <ColorName color={color}>{color?.substr(1)}</ColorName>
 
                 <StyeldIoIosAddCircleOutline  onClick={removeColor} size={iconSize}/>

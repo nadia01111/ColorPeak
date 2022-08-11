@@ -1,10 +1,11 @@
 
 
   
-const colorRecognize = async (req,res) => {
+const colorRecognize = async () => {
     res.status(200).json({status:200, message:"ok"});
     console.log(req.body);
-    const url = "http://localhost:3000/c56099a5-bebe-4019-b6ba-d3d73d73876f";
+  h
+    const url = "";
 
     const vision = require('@google-cloud/vision');
 
@@ -24,10 +25,10 @@ const colorRecognize = async (req,res) => {
 }
 // colorRecognize();
 
-const test = async (req,res) => {
-    res.status(200).json({status:200, message:"ok"});
-}
+// const test = async (req,res) => {
+//     res.status(200).json({status:200, message:"ok"});
+// }
 module.exports = {
     colorRecognize,
-    test
+    // test
 };

@@ -31,6 +31,7 @@ const PaletteFromPicture = () => {
         })
     },[images]);
 
+    const test ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoghCA2OVcSJkItUA-O9-o44NKQncoD7vmzRSw4UKhqUmLNUox6W_4_3FUBS4fjb7xJxg&usqp=CAU";
     const onImageChange = (e) => {
         setImages([...e.target.files]);
     }
@@ -38,9 +39,10 @@ console.log("imagesurl", imageURLs)
     return (
         <Wrapper>
         <input type="file" multiple accept="image/*" onChange={onImageChange}/>
+        
         <Btn onClick={myFunc}>Generate Palette</Btn>
         <CollageWrap>
-        {imageURLs?.map(imageSrc => <ImgWrap><Img src={imageSrc}/></ImgWrap>)}
+        {imageURLs?.map(imageSrc => <ImgWrap><Img src={test}/></ImgWrap>)}
         <PaletteWrap>
 
         </PaletteWrap>

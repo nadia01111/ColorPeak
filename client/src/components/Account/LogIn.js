@@ -54,7 +54,7 @@ const LogIn = () => {
                {errorMessage&&<ErrorMsg>{errorMessage}</ErrorMsg>}
                Don't have an account? <Link to="/account/register">Sign Up</Link>
             </Form> */}
- <button onClick={() => loginWithRedirect()}>Log In</button>;
+    <button onClick={() => loginWithRedirect()}>Log In</button>;
     </Wrapper>
 
     )

@@ -41,13 +41,42 @@ const getRandomePalette = async (req,res) => {
   });
 }
 
-const validation = (req,res) => {
-//  const user = res.locals.users
+
+
+const getPictures = async (req,res) => {
+    const client = new MongoClient(MONGO_URI, options);
+    const db = client.db("ColorPeak");
+    await client.connect();
+    console.log("connected");
+    const result = await db.collection("pictures").find().toArray();
+   
+
+    if (result) {
+        return res.status(200).json({status:200, data: result})
+      }
+  
+      if (result.length<0) {
+        return res.status(404).json({status:404, message: "info not found"})
+      }
+      client.close();
+  };
+
+const test = async (req,res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  console.log(MONGO_URI);
+  // console.log(client)
+  const db = client.db("ColorPeak");
+  await client.connect();
+  console.log("connected");
+  const result = await db.collection("users").find().toArray();
+   console.log(result);
+  res.status(200).json({status:200, data:result});
+  client.close();
 }
 
-const getUserById = async (req,res) => {
 
-  };
+
+
   const uploadPicture = async (req,res) => {
 
     // const client = new MongoClient(MONGO_URI, options);
@@ -66,7 +95,7 @@ const getUserById = async (req,res) => {
 
   module.exports = {
     getRandomePalette,
-    validation,
-    getUserById,
-    uploadPicture
+    uploadPicture,
+    getPictures,
+    test
 };
