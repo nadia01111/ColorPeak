@@ -15,7 +15,7 @@ const colorRecognize = async (req,res) => {
     return new Error('Invalid input string');
       }    response.type = matches[1];
       // const buff = Buffer.from(items.imageSrc, "utf-8");
-      response.data = Buffer.from(matches[2], 'utf-8');
+      response.data = Buffer.from(matches[2]);
       console.log(matches[2])
        return response;
 }

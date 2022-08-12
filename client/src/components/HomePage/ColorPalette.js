@@ -20,21 +20,6 @@ const {colors, setColors,
     btnRef
      } = useContext(ColorsContext);
 
-//      const btnRef = useRef(null);
-
-//      const fetchColors = async () => {
-//         const response = await fetch('/api/randome-palette');
-//         const fetchedColors = await response.json();
-//         setType(fetchedColors.type);
-//         setColors(fetchedColors.data);
-//         setLoading(true);
-// };
-//      useEffect(() => {
-//         fetchColors();
-//         localStorage.setItem('currentPalette', JSON.stringify(colors));
-//         btnRef.current.focus();
-//         }, []);
-//     console.log(colors);
 
 
 // remove color from the palette
@@ -42,19 +27,23 @@ const removeColor = (index) => {
     colors.splice(index,1)
 };
 
-
+console.log("colors" , colors);
 if (loading === false) {
     <div>loading</div>
 }
-// console.log("1",isLiked);
+// const check = colors.every((color) => typeof color === "string");
+// if (check) {
+
     return (
     <Wrapper>
        <Wrap>  
         {colors?.splice(0,5).map((color,index)=> {
+           
+            const name = color.substring(1);
             return (<>
             <Color color={color}>
                 <ActionBar color={color}/>
-                <ColorName color={color}>{color?.substr(1)}</ColorName>
+                <ColorName color={color}>{name}</ColorName>
 
                 <StyeldIoIosAddCircleOutline  onClick={removeColor} size={iconSize}/>
 
@@ -64,6 +53,9 @@ if (loading === false) {
         })}
         </Wrap>
     </Wrapper>)
+        // } else {
+        //     <div>Error!Refresh the page </div>
+        // }
 }
 
 
