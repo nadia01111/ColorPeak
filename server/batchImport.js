@@ -16,20 +16,20 @@ const batchImport = async () => {
 console.log(MONGO_URI);
 const client = new MongoClient(MONGO_URI, options);
 
-    // try {
-    //     await client.connect();
-    //     const db = client.db("ColorPeak");
-    //     console.log("connected");
-    //     const insertImgs = await db.collection("pictures").insertMany(images);
-    //     console.log(insertImgs)
+    try {
+        await client.connect();
+        const db = client.db("ColorPeak");
+        console.log("connected");
+        const insertImgs = await db.collection("pictures").insertMany(images);
+        console.log(insertImgs)
     
-    //    } catch (err) {
+       } catch (err) {
         
-    //      console.log(err.stack);
-    //    } finally {
+         console.log(err.stack);
+       } finally {
 
-    //        client.close();
-    //    }
+           client.close();
+       }
 
 
 }
