@@ -1,38 +1,23 @@
 const fs = require('fs');
 
-
 const items = require("./img.json");
 
-  
 const colorRecognize = async (req,res) => {
  
-  const argument= items.imageSrc;
-
+  const argument= req.body.ImageBase64;
   const decodeBase64Image = (dataString) => {
     var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
     response = {};
        if (matches.length !== 3) {
-    return new Error('Invalid input string');
+      return new Error('Invalid input string');
       }    response.type = matches[1];
-      // const buff = Buffer.from(items.imageSrc, "utf-8");
-      response.data = Buffer.from(matches[2]);
-      console.log(matches[2])
-       return response;
-}
+      
+      var buffer = Buffer.from(matches[2],"base64");
+      return buffer;
+  }
 
 const  decodedImg = decodeBase64Image(argument);
-console.log(decodedImg);
-// var imageBuffer = decodedImg.data;
-// var type = decodedImg.type;
-// var extension = mime.extension(type);
-// var fileName =  "image." + extension;
-// try{
-// fs.writeFileSync(".tmp/uploads/" + fileName, imageBuffer, 'utf8');
-// }  catch(err){
-// console.error(err)  } 
-    // var imageFile = fs.readFileSync('/Users/nadi/Documents/concordia-bootcamps/Final-Project/server/images.jpeg');
-    // var encoded = Buffer.from(items.imageSrc).toString('base64');
-    // const buff = Buffer.from(items.imageSrc, "utf-8");
+
     const vision = require('@google-cloud/vision');
 
     // Creates a client
@@ -43,6 +28,8 @@ console.log(decodedImg);
 
     const colors = result.imagePropertiesAnnotation.dominantColors.colors;
     colors.forEach(color => console.log(color));
+
+    return res.status(200).json({ status: 200, data: colors})
    
 
 }

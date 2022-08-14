@@ -1,6 +1,5 @@
 import styled from "styled-components"
 import { useEffect, useState } from "react";
-import body from '/Users/nadi/Documents/concordia-bootcamps/Final-Project/client/src/assets/test.json';
 import { FcCallback } from "react-icons/fc";
 
 const getBase64 = file => {
@@ -30,50 +29,40 @@ const PaletteFromPicture = () => {
     const [imageURLs, setImageURLs] = useState([]);
     const [encodedURLs, setEncodedURLs] = useState([]);
     const [palette, setPalette] =useState(null);
+    const [status, setStatus] = useState("loading")
 
     const myFunc = (ev) => {
         ev.preventDefault();
-        // getBase64(images).then(result => {
-        //     images["base64"] = result;
-        //     console.log("File Is", images);
-        //     this.setState({
-        //       base64URL: result,
-        //       images
-        //     });
-        //   })
-        //   .catch(err => {
-        //     console.log(err);
-        //   });
         let reader = new FileReader();
-        console.log(images[0])
+
         let blob = new Blob([images[0]], { type: "image/jpg" });
-        // const [imageObject, setImageObject] = useState(null);
-        let imageObject;
-        console.log(blob)
+
+        let ImageBase64;
+
         reader.onload = function (e) {
-            imageObject = reader.result;
-            //callback(imageObject)
-            console.log("1: ",reader.result);
-            //console.log(reader.result);
+
+            ImageBase64 = reader.result;
+            let image = {
+                ImageBase64,
+                
+              };
+              fetch("/api/color-recognize", {
+                  method: "POST",
+                  headers: {
+                 "Content-Type": "application/json",},
+                 body:JSON.stringify(image),
+                
+          })
+          .then((res) => res.json())
+          .then((data) => {
+              console.log(data.data);
+              setPalette(data.data);
+              setStatus("loaded")
+          })  
+
         };
         reader.readAsDataURL(blob);
        
-        
-        console.log("2: ",imageObject)
-         fetch("/api/color-recognize", {
-             method: "POST",
-             headers: {
-            "Content-Type": "application/json",},
-            body:JSON.stringify({imageObject}),
-           
-           
- 
-     })
-     .then((res) => res.json())
-     .then((data) => {
-         console.log(data.data);
-        
-     })  
     }
 
     useEffect(() => {
@@ -82,7 +71,6 @@ const PaletteFromPicture = () => {
         const newImageEncodedUrls =[];
         images.forEach((image) => {
             newImageUrls.push(URL.createObjectURL(image));
-            //newImageUrls.push(image);
             setImageURLs(newImageUrls);
             const encodedURI = btoa(URL.createObjectURL(image));
             newImageEncodedUrls.push(encodedURI)
@@ -94,7 +82,9 @@ const PaletteFromPicture = () => {
     const onImageChange = (e) => {
         setImages([...e.target.files]);
     }
-console.log("imagesurl", imageURLs)
+// console.log("imagesurl", imageURLs)
+
+// if (status ==="loading") {return <div>loading</div>}
     return (
         <Wrapper>
         <input type="file" multiple accept="image/*" onChange={onImageChange}/>
@@ -102,20 +92,39 @@ console.log("imagesurl", imageURLs)
         <Btn onClick={myFunc}>Generate Palette</Btn>
         <CollageWrap>
         {imageURLs?.map((imageSrc) => {
-        return <ImgWrap><Img src={imageSrc}/></ImgWrap>})}
+        return (<div>
+            <ImgWrap><Img src={imageSrc}/></ImgWrap>
         <PaletteWrap>
-
+            {status === "loading" ? <>loading</> :
+            palette.splice(0,5).map((element) => {
+               const {red, green, blue} = element.color;
+               const rgb = "rgb("+red + "," + green+","+ blue+")";
+               return <OneColor color={rgb} />
+          
+            })}
         </PaletteWrap>
+        </div>)
+        
+        })}
+        
         </CollageWrap>
         </Wrapper>)
 }
 const CollageWrap = styled.div``;
-const PaletteWrap = styled.div``;
+const PaletteWrap = styled.div`
+width: 500px;
+display: flex;
+`;
+const OneColor = styled.div`
+width: calc(100%/5);
+height: 100px ;
+background-color: ${props => props.color ? props.color : "none"};
+`;
 const ImgWrap = styled.div`
-height: 300px;
+width: 500px;
 `;
 const Img = styled.img`
-height: inherit;
+width: inherit;
 `;
 const Btn = styled.button`
 `;

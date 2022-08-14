@@ -5,7 +5,7 @@ import PaletteFromURL from "./PaletteFromURL.js";
 const CreateCollage = () => {
     return (<Wrapper>
         CreateCollage placeholder
-        {/* <PaletteFromPicture/> */}
+        <PaletteFromPicture/>
         {/* <PaletteFromURL/> */}
 
         
