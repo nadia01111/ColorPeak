@@ -10,6 +10,7 @@ import ActionBar from "./ActionBar";
 
 
 const ColorPalette = () => {
+
 const {colors, setColors,
     type, setType,
     loading, setLoading,
@@ -20,7 +21,7 @@ const {colors, setColors,
     btnRef
      } = useContext(ColorsContext);
 
-
+  const [palette, setPalette] = useState([]);
 
 // remove color from the palette
 const removeColor = (index) => {
@@ -28,11 +29,14 @@ const removeColor = (index) => {
 };
 
 console.log("colors" , colors);
+
+
+
+
 if (loading === false) {
     <div>loading</div>
 }
-// const check = colors.every((color) => typeof color === "string");
-// if (check) {
+
 
     return (
     <Wrapper>
@@ -42,7 +46,7 @@ if (loading === false) {
             const name = color.substring(1);
             return (<>
             <Color color={color}>
-                <ActionBar color={color}/>
+                {/* <ActionBar color={color}/> */}
                 <ColorName color={color}>{name}</ColorName>
 
                 <StyeldIoIosAddCircleOutline  onClick={removeColor} size={iconSize}/>
@@ -53,9 +57,7 @@ if (loading === false) {
         })}
         </Wrap>
     </Wrapper>)
-        // } else {
-        //     <div>Error!Refresh the page </div>
-        // }
+       
 }
 
 

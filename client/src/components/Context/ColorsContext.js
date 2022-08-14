@@ -10,6 +10,7 @@ export const ColorsContext = createContext(null);
             const [loading, setLoading] = useState(false);
             const [iconSize, setIconSize] = useState("24px");
             const [isErr, setIsErr] = useState(false);
+            // const [palette, setPalette] = useState([]);
  
             const btnRef = useRef(null);
 
@@ -22,27 +23,19 @@ export const ColorsContext = createContext(null);
                     console.log("pass")
                     setType(fetchedColors.type);
                     setColors(fetchedColors.data);
+                    localStorage.setItem("currentPalette", JSON.stringify(fetchedColors.data));
                     setLoading(true);
                 } else {
                     console.log("error");
                     getColors();
                 } };
      useEffect(() => {
-       
-  
-
-    console.log("hello!")
         fetchColors();
-    
-        localStorage.setItem('currentPalette', JSON.stringify(colors));
         btnRef.current.focus();
+        
+     
         }, []);
-    // console.log(colors);
-  
-
-    // useEffect(() => {
-    //     fetchColors();
-    // },[])
+ 
     return (
         <ColorsContext.Provider
         value={{

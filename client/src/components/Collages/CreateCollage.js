@@ -1,13 +1,11 @@
 import styled from "styled-components"
 import PaletteFromPicture from "./PaletteFromPicture";
-import PaletteFromURL from "./PaletteFromURL.js";
+
 
 const CreateCollage = () => {
     return (<Wrapper>
-        CreateCollage placeholder
+        <h1>Extract new palette from your photo.</h1>
         <PaletteFromPicture/>
-        {/* <PaletteFromURL/> */}
-
         
     </Wrapper>
 

@@ -1,6 +1,6 @@
 const { MongoClient } = require("mongodb");
 
-const {images } = require("./data/images")
+const {palettes } = require("./data/palettes")
 
 require("dotenv").config("./");
 
@@ -13,14 +13,14 @@ const options = {
 
 
 const batchImport = async () => {
-console.log(MONGO_URI);
+
 const client = new MongoClient(MONGO_URI, options);
 
     try {
         await client.connect();
         const db = client.db("ColorPeak");
         console.log("connected");
-        const insertImgs = await db.collection("pictures").insertMany(images);
+        const insertImgs = await db.collection("palettes").insertMany(palettes);
         console.log(insertImgs)
     
        } catch (err) {

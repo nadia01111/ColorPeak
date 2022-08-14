@@ -6,8 +6,9 @@ const PORT = 8000;
 
 const {
     getRandomePalette,
-    getPictures,
-    uploadPicture,
+    getAllPalettes,
+    savePalette,
+    getUserbyId,
     test
 } = require("./handlers");
 
@@ -31,12 +32,14 @@ express()
 
 /* Endpoints */
 .get("/api/randome-palette", getRandomePalette)
-.get("/api/images", getPictures)
+.get("/api/palettes", getAllPalettes)
 .get("/api/test", test)
+.get("/api/users/:userEmail", getUserbyId)
+
 
 // .get("/api/test", test)
 .post("/api/color-recognize",colorRecognize)
-.post("/api/upload/picture",uploadPicture)
+.post("/api/save-palettte",savePalette)
 
 
 

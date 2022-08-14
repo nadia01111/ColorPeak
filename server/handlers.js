@@ -43,12 +43,12 @@ const getRandomePalette = async (req,res) => {
 
 
 
-const getPictures = async (req,res) => {
+const getAllPalettes = async (req,res) => {
     const client = new MongoClient(MONGO_URI, options);
     const db = client.db("ColorPeak");
     await client.connect();
     console.log("connected");
-    const result = await db.collection("pictures").find().toArray();
+    const result = await db.collection("palettes").find().toArray();
    
 
     if (result) {
@@ -63,8 +63,6 @@ const getPictures = async (req,res) => {
 
 const test = async (req,res) => {
   const client = new MongoClient(MONGO_URI, options);
-  console.log(MONGO_URI);
-  // console.log(client)
   const db = client.db("ColorPeak");
   await client.connect();
   console.log("connected");
@@ -77,25 +75,27 @@ const test = async (req,res) => {
 
 
 
-  const uploadPicture = async (req,res) => {
+  const savePalette = async (req,res) => {
+    const client = new MongoClient(MONGO_URI, options);
+    const db = client.db("ColorPeak");
+    await client.connect();
+    console.log("connected");
+    console.log(req.body);
 
-    // const client = new MongoClient(MONGO_URI, options);
-
-    // try {
-    //   await client.connect();
-    //   const db = client.db("ColorPeak");
-    //   console.log("connected");
-    //   const _id = uuidv4();
-    //   const id = req.params.reservation;
-
-    // }
-    
+    //working! finish after user conext
   };
   
-
+  const getUserbyId = async (req,res) => {
+    const client = new MongoClient(MONGO_URI, options);
+    const db = client.db("ColorPeak");
+    await client.connect();
+    console.log("connected");
+    console.log(req.body);
+  }
   module.exports = {
     getRandomePalette,
-    uploadPicture,
-    getPictures,
-    test
+    savePalette,
+    test,
+    getUserbyId,
+    getAllPalettes,
 };
