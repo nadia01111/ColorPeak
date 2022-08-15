@@ -3,39 +3,36 @@ import styled from "styled-components";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
+import { useContext } from "react";
+import { UsersContext } from "./Context/UsersContext";
+import {FcApprove} from "react-icons/fc";
 
 
 const Header = () => {
-    const {
-        isLoading,
-        isAuthenticated,
-        error,
-        user,
-        loginWithRedirect,
-        logout,
-      } = useAuth0();
-      console.log(user);
-
+    const {currentUserID} = useContext(UsersContext);
+    const {isAuthenticated, user, loginWithRedirect, logout} = useAuth0();
+    console.log(user);
       
     return (
         <Wrapper>
             <Div1>
-                <StyeldLink to="/">
-                    <Img src={logo} alt="logo"/>  
-                </StyeldLink>
+                <StyeldLink to="/"><Img src={logo} alt="logo"/> </StyeldLink>
             </Div1>
           
             <StyeldLink to="/"> <H1> Color palette generator</H1></StyeldLink>
-           
+            
         
-          {isAuthenticated? <div>{user.name}</div>:null }
-          {isAuthenticated? 
-          <LogInBtn onClick={() => logout({ returnTo: window.location.origin })}>LogOut</LogInBtn>
-          : <Div1>
-            <Div2><h5>Sing in to save and explore palettes</h5></Div2>
-            <LogInBtn onClick={() => loginWithRedirect()}>LogIn</LogInBtn>
-            </Div1>}
-      
+          {isAuthenticated? <Div2>
+          <h3>Hello, {user.nickname} !</h3>
+          <StyeldLink to={`/users/${currentUserID}`}><FcApprove size={"40px"}/></StyeldLink>
+          <LogInBtn onClick={() => logout({ returnTo: window.location.origin })}>LogOut</LogInBtn></Div2>
+          :   <>
+          <Div2><h5>Sing in to save and explore palettes</h5></Div2>
+          <LogInBtn onClick={() => loginWithRedirect()}>LogIn</LogInBtn></> }
+        
+          
+            
+         
         
        
         </Wrapper>
@@ -47,9 +44,10 @@ display: flex;
 align-items: center;
 `;
 const Div2 = styled.div`
-width: 100px;
-text-align: center;
-margin-left: 10px;
+display: flex;
+align-items: center;
+justify-content: center;
+
 `;
 const StyeldLink = styled(Link)`
 color:black;

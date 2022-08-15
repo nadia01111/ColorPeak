@@ -1,10 +1,11 @@
 import styled from "styled-components"
-import { FcLikePlaceholder, FcLike, FcBookmark, FcLock, FcUnlock, FcAddImage,FcPicture} from "react-icons/fc";
+import { FcLikePlaceholder, FcLike, FcBookmark, FcLock, FcUnlock, FcAddImage,FcPicture, FcGrid} from "react-icons/fc";
 import { useContext, useState } from "react";
-import { ColorsContext } from "./Context/ColorsContext";
+import { ColorsContext } from "../Context/ColorsContext";
 import { Link } from "react-router-dom";
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; 
+import { UsersContext } from "../Context/UsersContext";
 
 const NavBar = () => {
     const {colors, setColors,
@@ -18,6 +19,8 @@ const NavBar = () => {
 
          } = useContext(ColorsContext);
 
+         const {currentUserId} = useContext(UsersContext);
+
         const [savedPalette, setSavedPalette] = useState([]);
          const currentPalette = JSON.parse(localStorage.getItem(`currentPalette`));
 
@@ -30,34 +33,39 @@ const NavBar = () => {
             fetch("/api/save-palettte", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({currentPalette})
+                body: JSON.stringify({currentPalette, currentUserId
+                })
                 })
                 .then((res) => res.json())
                 .then((data) => {
                     console.log(data.data);
-                    // setSavedPalette(data.data);
+                    setSavedPalette(data.data);
                 });
         }
 
     return (
     <Wrapper>
         <NewPaletteBtn ref={btnRef} onKeyDown={generateNewPalette}><h2>Presse space bar to generate new palette</h2></NewPaletteBtn>
-        <SaveBtn onClick={savePalette}><FcLike size={iconSize}/> Save </SaveBtn>
-        <Tippy content="create palette from picture"><Lnk to="/collages/create"><FcAddImage size={iconSize}/></Lnk></Tippy>
+        <SaveBtn onClick={savePalette}><FcLike size={iconSize}/><span>Save palette</span></SaveBtn>
+        <Tippy content="create palette from picture"><Lnk to="/palettes/create"><FcAddImage size={iconSize}/></Lnk></Tippy>
         
         
         <FcBookmark size={iconSize}/>
-        <FcPicture size={iconSize}/>
+        <Lnk to="/palettes"><FcGrid size={iconSize}/></Lnk>
+        
     </Wrapper>
 
     )
 }
 
 const SaveBtn =styled.button`
-
+display: flex;
 padding:5px;
 align-items:center;
 justify-content: center;
+.span{
+    font-weight: bold;
+}
 `;
 
 

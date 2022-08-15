@@ -87,7 +87,6 @@ margin: 5px;
 padding: 10px;
 text-transform: uppercase;
 letter-spacing: 0.03em;
-
 border-radius: 10px;
 :hover{
 

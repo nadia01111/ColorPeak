@@ -20,7 +20,7 @@ const client = new MongoClient(MONGO_URI, options);
         await client.connect();
         const db = client.db("ColorPeak");
         console.log("connected");
-        const insertImgs = await db.collection("palettes").insertMany(palettes);
+        const insertImgs = await db.collection("palettes_saved").insertMany(palettes);
         console.log(insertImgs)
     
        } catch (err) {

@@ -15,6 +15,7 @@ export default createGlobalStyle`
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Raleway', sans-serif;
+  margin: 5px;
 }
 div{
   font-family: 'Inter', sans-serif;

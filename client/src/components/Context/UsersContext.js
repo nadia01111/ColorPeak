@@ -1,7 +1,8 @@
 import { createContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
-
+// import { response } from "express";
+const { v4: uuidv4 } = require("uuid");
 export const UsersContext = createContext(null);
 
     export const  UsersProvider = ({children}) => {
@@ -14,34 +15,40 @@ export const UsersContext = createContext(null);
             logout,
           } = useAuth0();
           console.log(user);
-
-        const [currentUser, setCurrentUser] = useState(null);
-        const [friends, setFriends] = useState(null);
-        const [loading, setLoading] = useState("false");
-        // const [userEmail, setUserEmail] = useState(user.email)
-        const { userID } = useParams();
-
-    useEffect(() => {
-            //     fetch(`/api/users/${userEmail}`)
-            //     .then ((res) => res.json())
-            //     .then((data)=> {
-            //         console.log(data.data);
-            //         // setCurrentUser(data?.data)
-            // })
-            //     .catch((err) => {
-            //         throw new Error (err.stack)
-            //     })
-            },[])
-    
+          console.log(isAuthenticated);
+    const [currentUserID, setCurrentUserID]=useState(null);
+               
+       
+        useEffect(() => {
+            const addUserToMongo = async () => {
+                console.log("in use effect", isAuthenticated)
+              if (isAuthenticated) {
+                  await fetch("/api/user/create-user", {
+                    method: "POST", 
+                    headers: {"Content-Type": "application/json",},
+                    body: JSON.stringify({
+                        _id: uuidv4(), 
+                        email: user.email,
+                        nickname:user.nickname,
+                        avatar:user.picture,
+                        savedPalettes:[],
+                        friends: []
+                    })})
+                    .then((res)=>res.json())
+                    .then((data) => {
+                        console.log(data.message)
+                        setCurrentUserID(data.data);
+                    })
+                }};
+            addUserToMongo();
+          }, [isAuthenticated]);
+        
 
 
     return (
         <UsersContext.Provider
         value={{
-            // userData, setUserData,
-            currentUser, setCurrentUser,
-            friends, setFriends,
-            loading, setLoading
+            currentUserID
             }}>
         {children}
         </UsersContext.Provider>

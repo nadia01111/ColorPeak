@@ -9,7 +9,7 @@ const {
     getAllPalettes,
     savePalette,
     getUserbyId,
-    test
+    createUserMongo,
 } = require("./handlers");
 
 const {colorRecognize,
@@ -33,11 +33,11 @@ express()
 /* Endpoints */
 .get("/api/randome-palette", getRandomePalette)
 .get("/api/palettes", getAllPalettes)
-.get("/api/test", test)
-.get("/api/users/:userEmail", getUserbyId)
+.get("/api/users/:id", getUserbyId)
 
 
 // .get("/api/test", test)
+.post("/api/user/create-user", createUserMongo)
 .post("/api/color-recognize",colorRecognize)
 .post("/api/save-palettte",savePalette)
 
