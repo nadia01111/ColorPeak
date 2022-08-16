@@ -16,7 +16,7 @@ export const UsersContext = createContext(null);
           } = useAuth0();
           console.log(user);
           console.log(isAuthenticated);
-    const [currentUserID, setCurrentUserID]=useState(null);
+    const [currentUser, setCurrentUser]=useState(null);
                
        
         useEffect(() => {
@@ -37,7 +37,7 @@ export const UsersContext = createContext(null);
                     .then((res)=>res.json())
                     .then((data) => {
                         console.log(data.message)
-                        setCurrentUserID(data.data);
+                        setCurrentUser(data.data);
                     })
                 }};
             addUserToMongo();
@@ -48,7 +48,7 @@ export const UsersContext = createContext(null);
     return (
         <UsersContext.Provider
         value={{
-            currentUserID
+            currentUser
             }}>
         {children}
         </UsersContext.Provider>

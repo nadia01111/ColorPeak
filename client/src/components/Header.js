@@ -5,30 +5,32 @@ import { Link } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
 import { useContext } from "react";
 import { UsersContext } from "./Context/UsersContext";
-import {FcApprove} from "react-icons/fc";
+import {BsPersonCircle} from "react-icons/bs";
 
 
 const Header = () => {
-    const {currentUserID} = useContext(UsersContext);
+    const {currentUser} = useContext(UsersContext);
     const {isAuthenticated, user, loginWithRedirect, logout} = useAuth0();
-    console.log(user);
+    console.log(currentUser);
+   
       
     return (
         <Wrapper>
             <Div1>
                 <StyeldLink to="/"><Img src={logo} alt="logo"/> </StyeldLink>
             </Div1>
-          
-            <StyeldLink to="/"> <H1> Color palette generator</H1></StyeldLink>
-            
+            <H1>
+            <Name to="/"><h1>Color palette generator</h1></Name>
+            {isAuthenticated? null:<Div2><h5>Sing in to save and explore palettes</h5></Div2>}
+            </H1>
         
           {isAuthenticated? <Div2>
-          <h3>Hello, {user.nickname} !</h3>
-          <StyeldLink to={`/users/${currentUserID}`}><FcApprove size={"40px"}/></StyeldLink>
+          <H3>Hello,<Lnk to={`/users/${currentUser?._id}`}>{user.nickname}</Lnk>!</H3>
+          
           <LogInBtn onClick={() => logout({ returnTo: window.location.origin })}>LogOut</LogInBtn></Div2>
-          :   <>
-          <Div2><h5>Sing in to save and explore palettes</h5></Div2>
-          <LogInBtn onClick={() => loginWithRedirect()}>LogIn</LogInBtn></> }
+          :
+          
+          <LogInBtn onClick={() => loginWithRedirect()}>LogIn</LogInBtn> }
         
           
             
@@ -39,6 +41,25 @@ const Header = () => {
     )
 }
 
+const Name = styled(Link)`
+color:black;
+text-decoration:none;
+text-align: start;
+`;
+const Lnk = styled(Link)`
+
+:hover{
+  cursor: pointer;
+  color: lightgray;
+  background-color: black;
+  /* text-decoration: underline 1px red; */
+  margin-bottom: 2px;
+}
+`;
+
+const H3 = styled.h3`
+margin-right: 20px;
+`;
 const Div1 = styled.div`
 display: flex;
 align-items: center;
@@ -58,7 +79,9 @@ height:100px;
 margin-left:50px;
 `;
 
-const H1 = styled.h2``;
+const H1 = styled.div`
+
+`;
 const Wrapper = styled.div`
 margin-left: 20px;
 margin-right: 20px;
@@ -69,14 +92,15 @@ justify-content: space-between;
 `;
 // const  = styled.div``;
 const LogInBtn = styled.button`
-
+margin-right: 30px;
+margin-left: 10px;
 text-decoration: none;
 border: 1px solid gray;
 border-radius: 3px;
 padding: 10px 10px;
 cursor: pointer;
   :hover {
-    background-color: var(--color-black);
+    background-color:lightgray;
     color: var(--color-navbar-beige);
   }
 `;

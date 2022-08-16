@@ -9,19 +9,15 @@ import { UsersContext } from "../Context/UsersContext";
 
 const NavBar = () => {
     const {colors, setColors,
-        type, setType,
-        loading, setLoading,
         isLiked, setIsLiked,
-        isLocked, setIsLocked,
         iconSize,
         fetchColors,
         btnRef
 
          } = useContext(ColorsContext);
 
-         const {currentUserId} = useContext(UsersContext);
-
-        const [savedPalette, setSavedPalette] = useState([]);
+        const {currentUserId} = useContext(UsersContext);
+        const [isSaved, setIsSaved] = useState(false);
          const currentPalette = JSON.parse(localStorage.getItem(`currentPalette`));
 
         //press the space bar and see new palette
@@ -30,27 +26,30 @@ const NavBar = () => {
         }
 
         const savePalette = () => {
-            fetch("/api/save-palettte", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({currentPalette, currentUserId
-                })
-                })
-                .then((res) => res.json())
-                .then((data) => {
-                    console.log(data.data);
-                    setSavedPalette(data.data);
-                });
+            setIsSaved(!isSaved);
+            
+            // fetch("/api/save-palettte", {
+            //     method: "PATCH",
+            //     headers: { "Content-Type": "application/json" },
+            //     body: JSON.stringify({currentPalette, currentUserId
+            //     })
+            //     })
+            //     .then((res) => res.json())
+            //     .then((data) => {
+            //         console.log(data.data);
+            //     });
         }
-
+        console.log(isSaved);
     return (
     <Wrapper>
-        <NewPaletteBtn ref={btnRef} onKeyDown={generateNewPalette}><h2>Presse space bar to generate new palette</h2></NewPaletteBtn>
-        <SaveBtn onClick={savePalette}><FcLike size={iconSize}/><span>Save palette</span></SaveBtn>
+        <NewPaletteBtn ref={btnRef} onKeyDown={generateNewPalette}>
+            <h2>Presse space bar to generate new palette</h2></NewPaletteBtn>
+
+        {isSaved? <SaveBtn onClick={savePalette}><FcLike  size={iconSize}/><span>Palette saved</span></SaveBtn>:
+        <SaveBtn onClick={savePalette}><FcLikePlaceholder size={iconSize}/><span>Save palette</span></SaveBtn>
+        }
+        
         <Tippy content="create palette from picture"><Lnk to="/palettes/create"><FcAddImage size={iconSize}/></Lnk></Tippy>
-        
-        
-        <FcBookmark size={iconSize}/>
         <Lnk to="/palettes"><FcGrid size={iconSize}/></Lnk>
         
     </Wrapper>
@@ -59,12 +58,16 @@ const NavBar = () => {
 }
 
 const SaveBtn =styled.button`
+border: none;
+background-color: transparent;
 display: flex;
 padding:5px;
 align-items:center;
-justify-content: center;
-.span{
-    font-weight: bold;
+justify-content:space-around;
+border-radius: 5px;
+:hover{
+cursor: pointer;
+background-color: lightgray;
 }
 `;
 

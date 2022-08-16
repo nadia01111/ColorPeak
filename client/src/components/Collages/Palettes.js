@@ -105,18 +105,22 @@ overflow:hidden;
 `;
 
 const Container = styled.div`
+display: flex;
+flex-direction: column;
 width:100vw;
 align-items: center;
+
 `;
 const Wrap = styled.div`
 width: 45%;
 display: flex;
 flex-direction: column;
 justify-content: flex-end;
+align-items: center;
 
 `;
 const Wrapper = styled.div`
-padding: 10px;;
+padding: 10px;
 width:inherit ;
 display: flex;
 flex-wrap:wrap;

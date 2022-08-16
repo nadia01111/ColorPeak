@@ -88,11 +88,11 @@ const getAllPalettes = async (req,res) => {
     const ifUserExist = await db.collection("usersMongo").findOne({email});
     console.log(ifUserExist);
     if (ifUserExist) {
-      res.status(200).json({status:200, data:ifUserExist._id, message:"user exists"});
+      res.status(200).json({status:200, data:ifUserExist, message:"user exists"});
     } else {
       const addUser = await db.collection("usersMongo").insertOne({_id, email, nickname, avatar, savedPalettes, friends});
     if (addUser.acknowledged) {
-      res.status(200).json({status:200, data:_id, message: "user created"});
+      res.status(200).json({status:200, data:{_id, email, nickname, avatar, savedPalettes, friends}, message: "user created"});
     } else {
       return res.status(500).json({
         message: "An unknown error has occurred. Please try your request again.",
@@ -114,6 +114,17 @@ const getAllPalettes = async (req,res) => {
 
    };
 
+
+
+//    const saved = () => {
+
+//    const currentUsaddPalette = await db.collection("usersMongo").updateOne(_is) { $push: { <field1>: <value1>, ... } }
+
+// db.collection("usersMongo").updateOne(
+//    { _id: 1 },
+//    { $push: { savedPalettes: VARIABLE } }
+// )
+//    }
   module.exports = {
     getRandomePalette,
     savePalette,
