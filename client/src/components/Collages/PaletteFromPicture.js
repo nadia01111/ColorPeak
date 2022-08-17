@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { useContext, useEffect, useState } from "react";
 import { UsersContext } from "../Context/UsersContext";
+import SaveBtn from "./SaveBtn";
 
 const { v4: uuidv4 } = require("uuid");
 
@@ -30,10 +31,12 @@ const getBase64 = file => {
 
 const PaletteFromPicture = () => {
     const {currentUser, savePalette, isSaved, setIsSaved} = useContext(UsersContext);
+    const [isLiked, setIsLiked] = useState(false)
     const [images, setImages] = useState([]);
     const [imageURLs, setImageURLs] = useState([]);
     const [encodedURLs, setEncodedURLs] = useState([]);
     const [palette, setPalette] =useState(null);
+    const [rgbProp, setRgbProp] =useState([]);
     const [status, setStatus] = useState("loading")
 
 
@@ -82,20 +85,25 @@ const PaletteFromPicture = () => {
     const onImageChange = (e) => {
         setImages([...e.target.files]);
     }
+    const currentUserId=currentUser?._id;
 
     const paletteToSave = () => {
-        setIsSaved(!isSaved);
-        const palette = palette?.slice(0,5)?.map((element)=>{
-            const {red, green, blue} = element.color;
+        setIsLiked(!isLiked);
+        const pale = palette?.slice(0,5)?.map((element,index)=>{
+            const { red, green, blue} = element.color;
             const rgb = "rgb("+red + "," + green+","+ blue+")";
-            return rgb;
+            if (index<5){
+              return rgb;  
+            }
+            
         });
         const _id = uuidv4()
-        const isLikedBy = currentUser?._id;
-        fetch("/api/save-palette", {
-            method: "PATCH",
+        const isLikedBy = currentUserId;
+        console.log(pale,isLikedBy);
+        fetch("/api/save-palette-from-picture", {
+            method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({_id:_id, currentPalette:palette, currentUser:isLikedBy, isSaved})
+            body: JSON.stringify({_id:_id, palette:pale, isLikedBy})
             })
             .then((res) => res.json())
             .then((data) => {
@@ -104,6 +112,7 @@ const PaletteFromPicture = () => {
 
 
     }
+    
 // if (status ==="loading") {return <div>loading</div>}
     return (
         <Wrapper>
@@ -113,6 +122,7 @@ const PaletteFromPicture = () => {
 
         </BtnWrap>
         <CollageWrap>
+     
         {imageURLs?.map((imageSrc) => {
         return (<ReturnWrap>
             <Wrap1>
@@ -126,6 +136,7 @@ const PaletteFromPicture = () => {
                         const {red, green, blue} = element.color;
                         const rgb = "rgb("+red + "," + green+","+ blue+")";
                         return <OneColor color={rgb} key={rgb} />
+                        
                     })}
                 </PaletteWrap>
                 

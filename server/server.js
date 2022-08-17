@@ -10,7 +10,8 @@ const {
     getUserbyId,
     createUserMongo,
     saveGeneratedPalette,
-    getSavedPalettes
+    getSavedPalettes,
+    savePaletteFromPicture
 } = require("./handlers");
 
 const {colorRecognize,
@@ -39,6 +40,8 @@ express()
 
 .post("/api/user/create-user", createUserMongo)
 .post("/api/color-recognize",colorRecognize)
+.post("/api/save-palette-from-picture", savePaletteFromPicture)
+
 .patch("/api/save-palette",saveGeneratedPalette)
 
 

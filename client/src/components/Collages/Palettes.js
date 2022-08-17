@@ -1,18 +1,19 @@
 import { useState, useEffect,useContext } from "react";
 import styled from "styled-components"
-import SavePalette from "./SavePaletteBar";
+import SavePaletteBar from "./SavePaletteBar";
 import { UsersContext } from "../Context/UsersContext";
 // import { palettes } from "../../assets/palettes";
 
 const Palettes = () => {
   const {currentUser, savePalette, isSaved, setIsSaved} = useContext(UsersContext);
+
+    const [isLiked, setIsLiked] = useState(false);
     const [palettes, setPalettes] = useState(null);
     const [status, setStatus] = useState("loading");
-    const [isLiked, setIsLiked] = useState(false);
-    const [numLikes, setNumLikes] = useState(25);
+    
 
     useEffect(() => {
-        fetch("/api/palettes")
+        fetch("/api/paletes")
           .then((res) => res.json())
           .then((data) => {
             console.log("inside palettes useEff", data.data);
@@ -39,7 +40,7 @@ const Palettes = () => {
               return <ColorWrap color={color} key={color+index}><ColorName>{color.substring(1)}</ColorName></ColorWrap>
             })}
           </PaletteWrap>
-          <SavePalette props={numLikes}/>
+          <SavePaletteBar numLikes={palette.isLikedBy.length} isLiked={isLiked} setIsLiked={setIsLiked}/>
           </Wrap>
           )
         })}

@@ -42,7 +42,7 @@ const UserFeed = () => {
 const Container = styled.div`
 display: flex;
 flex-wrap: wrap;
-justify-content: flex-start;
+justify-content: space-around;
 `
 
 const PaletteWrap = styled.div`
@@ -51,7 +51,7 @@ height: 100px;
 display: flex;
 border-radius: 12px;
 overflow:hidden;
-margin: 10px 35px 10px 35px;
+margin: 10px 15px 10px 15px;
 
 `;
 const Color = styled.div`

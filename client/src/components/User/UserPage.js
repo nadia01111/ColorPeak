@@ -32,6 +32,7 @@ const UserPage = () => {
 }
 
 const Wrap1 = styled.div`
+
 width: 90vw;
 padding: 5px;
 border: 2px solid yellow;

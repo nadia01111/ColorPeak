@@ -194,6 +194,32 @@ const getAllPalettes = async (req,res) => {
     }
   }
 
+  const savePaletteFromPicture = async(req,res) => {
+    const client = new MongoClient(MONGO_URI, options);
+    console.log("here");
+    try{
+      const db = client.db("ColorPeak");
+      await client.connect();
+      console.log("savePaletteFromPicture connected");
+      console.log(req.body);
+      const _id = req.body._id;
+      const palette = req.body.palette;
+      const isLikedBy = req.body.isLikedBy;
+      const savePalette = await db.collection("palettes_saved").insertOne({_id,palette, isLikedBy});
+      const addPaletteToUser =  await db.collection("usersMongo").updateOne(
+        {_id: isLikedBy},
+        {$pull: { savedPalettes: _id}}
+        ) 
+      
+      res.status(200).json({status:200, data:_id , message: "new palette saved"});
+  } catch (err) {
+    console.log(err.stack)
+    res.status(500).json({status:500, message: err.stack})
+  } finally {
+  client.close();
+  console.log("disconnected");
+  }
+}
 
   module.exports = {
     getRandomePalette,
@@ -201,5 +227,6 @@ const getAllPalettes = async (req,res) => {
     getAllPalettes,
     createUserMongo,
     saveGeneratedPalette,
-    getSavedPalettes
+    getSavedPalettes,
+    savePaletteFromPicture
     };
