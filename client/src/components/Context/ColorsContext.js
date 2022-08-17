@@ -35,10 +35,10 @@ const { v4: uuidv4 } = require("uuid");
                     console.log("error");
                     getColors();
                 } };
-     useEffect(() => {
-        fetchColors();
-        btnRef.current.focus();
-        }, []);
+    //  useEffect(() => {
+    //     fetchColors();
+    //     btnRef.current.focus();
+    //     }, []);
 console.log(colors);
 
  

@@ -35,7 +35,7 @@ const Palettes = () => {
           return (
           <Wrap>
           <PaletteWrap key={palette._id}>
-            {palette?.colors?.map((color,index) => {
+            {palette?.palette?.map((color,index) => {
               return <ColorWrap color={color} key={color+index}><ColorName>{color.substring(1)}</ColorName></ColorWrap>
             })}
           </PaletteWrap>
@@ -96,9 +96,8 @@ letter-spacing: 0.03em;
 const PaletteWrap =styled.div`
 box-sizing: border-box;
 display: flex;
-
 height: 100px;
-/* border: 1px solid red; */
+width: ;
 border-radius: 15px;
 margin: 5px;
 overflow:hidden;
@@ -125,6 +124,8 @@ padding: 10px;
 width:inherit ;
 display: flex;
 flex-wrap:wrap;
+align-items: center;
+justify-content: center;
 `;
 
 export default Palettes;

@@ -9,11 +9,12 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 import ActionBar from "./ActionBar";
 
 
-const ColorPalette = () => {
+const ColorPalette = ({colors,loading}) => {
 
-const {colors, setColors,
-    type, setType,
-    loading, setLoading,
+const {
+    // colors, setColors,
+    // type, setType,
+    // loading, setLoading,
     
     iconSize,
 
