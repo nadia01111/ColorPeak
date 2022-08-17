@@ -1,6 +1,7 @@
 // "use strict";
 
 const express = require("express");
+
 const morgan = require("morgan");
 const PORT = 8000;
 
@@ -20,7 +21,7 @@ const {colorRecognize,
 
 express()
 .use(morgan("tiny"))
-.use(express.json())
+.use(express.json({ limit: '10mb' }))
 .use(express.static("public"))
 .use(function (req, res, next) {
   res.header(
