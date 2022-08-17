@@ -5,7 +5,6 @@ import { UsersContext } from "../Context/UsersContext";
 import { FcLike} from "react-icons/fc";
 // import UserFeed from "./UserFeed";
 // import { user } from "./user";
-import NavBar from "../HomePage/NavBar";
 import { ColorsContext } from "../Context/ColorsContext";
 import UserFeed from "./UserFeed";
 

@@ -2,6 +2,7 @@ import { createContext, useEffect, useState, useRef, useContext } from "react";
 import axios from 'axios';
 import { UsersContext } from "./UsersContext";
 export const ColorsContext = createContext(null);
+const { v4: uuidv4 } = require("uuid");
 
 
     export const  ColorsContextProvider = ({children}) => {
@@ -10,22 +11,24 @@ export const ColorsContext = createContext(null);
         //variabels for generating random palette
             const [colors, setColors] = useState(null);
             const [loading, setLoading] = useState(false);
-        //variabels for fetching existing palettes
-            const [allPalettes, setAllPalettes] = useState(null);
+       
             const [status, setStatus] = useState("loading");
         //hook for focusing on GeneratePalette button on load
             const btnRef = useRef(null);
-        const {currentUser} = useContext(UsersContext);
-
+     ///if plalette saved or not
+            const [isSaved, setIsSaved] = useState(false);
         /// generates the random palette on HomePage using API
             const fetchColors = async function getColors () {
+                setIsSaved(false);
                 console.log("in fetch");
                 const response = await fetch('/api/randome-palette');
                 const fetchedColors = await response.json();
                 const check = fetchedColors.data.every(color => typeof color === 'string');
+                console.log("check", check);
                 if (check && fetchedColors.data.length>0) {
+                    console.log("before pass", fetchedColors.data);
                     console.log("pass")
-                    setColors(fetchedColors.data);
+                    setColors({_id:uuidv4(), colors: fetchedColors.data});
                     localStorage.setItem("currentPalette", JSON.stringify(fetchedColors.data));
                     setLoading(true);
                 } else {
@@ -34,19 +37,10 @@ export const ColorsContext = createContext(null);
                 } };
      useEffect(() => {
         fetchColors();
-        // btnRef.current.focus();
+        btnRef.current.focus();
         }, []);
+console.log(colors);
 
-///get all already created palettes to render 
-        useEffect(() => {
-        fetch(`/api/palettes`)
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data.data);
-            setAllPalettes(data.data);
-            setStatus("loaded");
-          });
-      }, []);
  
     return (
         <ColorsContext.Provider
@@ -55,8 +49,8 @@ export const ColorsContext = createContext(null);
             loading, setLoading,
             iconSize, setIconSize,
             btnRef,fetchColors,
-            allPalettes, setStatus, status
-
+            status,
+            isSaved, setIsSaved
             }}>
         {children}
         </ColorsContext.Provider>

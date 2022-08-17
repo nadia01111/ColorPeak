@@ -1,7 +1,11 @@
 import styled from "styled-components"
-import { useEffect, useState } from "react";
-import { FcCallback } from "react-icons/fc";
+import { useContext, useEffect, useState } from "react";
+import { UsersContext } from "../Context/UsersContext";
 
+const { v4: uuidv4 } = require("uuid");
+
+
+//encode image from user to B64 fromat (for Google vision API)
 const getBase64 = file => {
     return new Promise(resolve => {
       let fileInfo;
@@ -15,7 +19,7 @@ const getBase64 = file => {
       // on reader load somthing...
       reader.onload = () => {
         // Make a fileInfo Object
-        console.log("Called", reader);
+        // console.log("Called", reader);
         baseURL = reader.result;
         console.log(baseURL);
         resolve(baseURL);
@@ -25,27 +29,23 @@ const getBase64 = file => {
   };
 
 const PaletteFromPicture = () => {
+    const {currentUser, savePalette, isSaved, setIsSaved} = useContext(UsersContext);
     const [images, setImages] = useState([]);
     const [imageURLs, setImageURLs] = useState([]);
     const [encodedURLs, setEncodedURLs] = useState([]);
     const [palette, setPalette] =useState(null);
     const [status, setStatus] = useState("loading")
 
-    const myFunc = (ev) => {
+
+    ///getPaletteFromPicture 
+    const getPaletteFromPicture = (ev) => {
         ev.preventDefault();
         let reader = new FileReader();
-
         let blob = new Blob([images[0]], { type: "image/jpg" });
-
         let ImageBase64;
-
-        reader.onload = function (e) {
-
+        reader.onload = function () {
             ImageBase64 = reader.result;
-            let image = {
-                ImageBase64,
-                
-              };
+            let image = {ImageBase64};
               fetch("/api/color-recognize", {
                   method: "POST",
                   headers: {
@@ -64,7 +64,7 @@ const PaletteFromPicture = () => {
         reader.readAsDataURL(blob);
        
     }
-
+///useEffect tto render image from user`s source
     useEffect(() => {
         if (images.length<1) return;
         const newImageUrls =[];
@@ -82,34 +82,67 @@ const PaletteFromPicture = () => {
     const onImageChange = (e) => {
         setImages([...e.target.files]);
     }
-// console.log("imagesurl", imageURLs)
 
+    const paletteToSave = () => {
+        setIsSaved(!isSaved);
+        const palette = palette?.slice(0,5)?.map((element)=>{
+            const {red, green, blue} = element.color;
+            const rgb = "rgb("+red + "," + green+","+ blue+")";
+            return rgb;
+        });
+        const _id = uuidv4()
+        const isLikedBy = currentUser?._id;
+        fetch("/api/save-palette", {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({_id:_id, currentPalette:palette, currentUser:isLikedBy, isSaved})
+            })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data.data);
+            });
+
+
+    }
 // if (status ==="loading") {return <div>loading</div>}
     return (
         <Wrapper>
+        <BtnWrap>
         <input type="file" multiple accept="image/*" onChange={onImageChange}/>
-        
-        <Btn onClick={myFunc}>Generate Palette</Btn>
+        <Btn onClick={getPaletteFromPicture}>Generate Palette</Btn>
+
+        </BtnWrap>
         <CollageWrap>
         {imageURLs?.map((imageSrc) => {
-        return (<div>
-            <ImgWrap><Img src={imageSrc}/></ImgWrap>
-        <PaletteWrap>
-            {status === "loading" ? <>loading</> :
-            palette.splice(0,5).map((element) => {
-               const {red, green, blue} = element.color;
-               const rgb = "rgb("+red + "," + green+","+ blue+")";
-               return <OneColor color={rgb} />
-          
-            })}
-        </PaletteWrap>
-        </div>)
+        return (<ReturnWrap>
+            <Wrap1>
+               <ImgWrap><Img src={imageSrc}/></ImgWrap>
+               <Btn onClick={paletteToSave}>Save Palette</Btn> 
+            </Wrap1>
+            
+            <PaletteWrap>
+                    {status === "loading" ? null :
+                    palette.slice(0,5).map((element) => {
+                        const {red, green, blue} = element.color;
+                        const rgb = "rgb("+red + "," + green+","+ blue+")";
+                        return <OneColor color={rgb} key={rgb} />
+                    })}
+                </PaletteWrap>
+                
+        </ReturnWrap>)
         
         })}
         
         </CollageWrap>
         </Wrapper>)
 }
+
+const ReturnWrap =styled.div`
+`;
+const Wrap1 =styled.div`
+display: flex;
+
+`;
 const CollageWrap = styled.div``;
 const PaletteWrap = styled.div`
 width: 500px;
@@ -128,7 +161,10 @@ width: inherit;
 `;
 const Btn = styled.button`
 `;
+const BtnWrap =styled.div`
+`;
 const Wrapper = styled.div`
+margin: 20px;
 `
 
 export default PaletteFromPicture;

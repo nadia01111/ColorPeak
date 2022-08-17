@@ -6,8 +6,8 @@ import Header from "./Header";
 import HomePage from "./HomePage/HomePage";
 // import NavBar from "./NavBar";
 import UserPage from "./User/UserPage";
-import LogIn from "./Account/LogIn";
-import CreateAccount from "./Account/CreateAccount";
+import NavBar from "./NavBar";
+import UserFeed from "./User/UserFeed";
 
 
 
@@ -18,12 +18,12 @@ const App = () => {
     <BrowserRouter>
     <GlobalStyles/>
       <Header />
+      <NavBar/>
       <Routes>
         <Route path="/" element={<HomePage/>}/>
-        <Route path="/account/login" element={<LogIn/>}/>
-        <Route path="/account/create" element={<CreateAccount/>}/>
         <Route path="/users/:userID" element={<UserPage/>}/>
         <Route path="/palettes" element={<Palettes/>}/>
+        <Route path="/palettes/saved/:userID" element={<UserFeed/>}/>
         <Route path="/palettes/create" element={<CreateCollage/>}/>
      
       </Routes>

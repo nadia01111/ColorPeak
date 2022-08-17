@@ -1,4 +1,4 @@
-import { useContext, useState , useRef, useEffect} from "react";
+import React, { useContext, useState , useRef, useEffect} from "react";
 import { ColorsContext } from "../Context/ColorsContext";
 import styled from "styled-components";
 
@@ -14,25 +14,12 @@ const ColorPalette = () => {
 const {colors, setColors,
     type, setType,
     loading, setLoading,
-    isLiked, setIsLiked,
-    isLocked, setIsLocked,
-    iconSize, setIconSize,
-    fetchColors,
-    btnRef
+    
+    iconSize,
+
      } = useContext(ColorsContext);
 
-  const [palette, setPalette] = useState([]);
-
-// remove color from the palette
-const removeColor = (index) => {
-    colors.splice(index,1)
-};
-
-console.log("colors" , colors);
-
-
-
-
+console.log(colors);
 if (loading === false) {
     <div>loading</div>
 }
@@ -41,18 +28,18 @@ if (loading === false) {
     return (
     <Wrapper>
        <Wrap>  
-        {colors?.splice(0,5).map((color,index)=> {
+        { colors?.colors?.map((color,index)=> {
            
             const name = color.substring(1);
-            return (<>
+            return (<React.Fragment key={color+index}>
             <Color color={color}>
                 {/* <ActionBar color={color}/> */}
                 <ColorName color={color}>{name}</ColorName>
 
-                <StyeldIoIosAddCircleOutline  onClick={removeColor} size={iconSize}/>
+                <StyeldIoIosAddCircleOutline   size={iconSize}/>
 
             </Color> 
-                </>)
+                </React.Fragment>)
 
         })}
         </Wrap>

@@ -12,17 +12,18 @@ const Header = () => {
     const {currentUser} = useContext(UsersContext);
     const {isAuthenticated, user, loginWithRedirect, logout} = useAuth0();
     console.log(currentUser);
-   
+ 
       
     return (
         <Wrapper>
             <Div1>
                 <StyeldLink to="/"><Img src={logo} alt="logo"/> </StyeldLink>
             </Div1>
-            <H1>
+            <Div1><H1>
             <Name to="/"><h1>Color palette generator</h1></Name>
             {isAuthenticated? null:<Div2><h5>Sing in to save and explore palettes</h5></Div2>}
-            </H1>
+            </H1></Div1>
+            
         
           {isAuthenticated? <Div2>
           <H3>Hello,<Lnk to={`/users/${currentUser?._id}`}>{user.nickname}</Lnk>!</H3>
@@ -45,14 +46,15 @@ const Name = styled(Link)`
 color:black;
 text-decoration:none;
 text-align: start;
+
 `;
 const Lnk = styled(Link)`
-
+padding: 5px;
+border-radius: 3px;
 :hover{
   cursor: pointer;
-  color: lightgray;
-  background-color: black;
-  /* text-decoration: underline 1px red; */
+  color: white;
+  background: linear-gradient(180deg, #5938ff, #f4a261);
   margin-bottom: 2px;
 }
 `;
@@ -92,16 +94,19 @@ justify-content: space-between;
 `;
 // const  = styled.div``;
 const LogInBtn = styled.button`
+color:#5938ff;
+font-weight: bold;
+width: 80px;
 margin-right: 30px;
 margin-left: 10px;
 text-decoration: none;
 border: 1px solid gray;
 border-radius: 3px;
-padding: 10px 10px;
+padding: 8px 6px;
 cursor: pointer;
   :hover {
-    background-color:lightgray;
-    color: var(--color-navbar-beige);
+    background-color:#f4a261;
+    color: #5938ff;
   }
 `;
 

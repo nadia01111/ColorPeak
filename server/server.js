@@ -7,9 +7,10 @@ const PORT = 8000;
 const {
     getRandomePalette,
     getAllPalettes,
-    savePalette,
     getUserbyId,
     createUserMongo,
+    saveGeneratedPalette,
+    getSavedPalettes
 } = require("./handlers");
 
 const {colorRecognize,
@@ -34,12 +35,11 @@ express()
 .get("/api/randome-palette", getRandomePalette)
 .get("/api/palettes", getAllPalettes)
 .get("/api/users/:id", getUserbyId)
+.get("/api/fetch-my-palettes/:id",getSavedPalettes)
 
-
-// .get("/api/test", test)
 .post("/api/user/create-user", createUserMongo)
 .post("/api/color-recognize",colorRecognize)
-.post("/api/save-palettte",savePalette)
+.patch("/api/save-palette",saveGeneratedPalette)
 
 
 

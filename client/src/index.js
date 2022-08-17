@@ -11,12 +11,13 @@ root.render(
     domain="dev-runzculh.us.auth0.com"
     clientId="LuuPiciIrwmBGbQth2mPWF1qizWvrxiI"
     redirectUri={window.location.origin}
-  >
-   <UsersProvider>
-     <ColorsContextProvider>
-       <App />
-     </ColorsContextProvider>
-   </UsersProvider>
+  > 
+  <ColorsContextProvider>
+    <UsersProvider>
+        <App />
+    </UsersProvider>
+  </ColorsContextProvider>
+  
 
    </Auth0Provider>  
     

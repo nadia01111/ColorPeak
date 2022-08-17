@@ -1,30 +1,36 @@
 import styled from "styled-components"
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UsersContext } from "../Context/UsersContext";
 import { ColorsContext } from "../Context/ColorsContext";
+import { useParams } from "react-router-dom";
 
 const UserFeed = () => {
+    const [paletttesLikedByUser, setPaletttesLikedByUser] = useState([])
     const {currentUser} = useContext(UsersContext);
-    const {allPalettes, setStatus, status} = useContext(ColorsContext);
-    // console.log(currentUser?.savedPalettes);
-    // console.log(allPalettes);
-
-
-    //function tto filter matching palettes from user object vs all saved palettes
-    const palettesToRender =[];
-    allPalettes.map((paletteObj) => {
-        if (currentUser?.savedPalettes?.includes(paletteObj._id)) {
-            palettesToRender.push(paletteObj.colors);
-            return palettesToRender;
-        }
-    })
+    const id = useParams();
+  
+    const savedPalettes = currentUser.savedPalettes;
+    console.log(savedPalettes);
+    
+    useEffect(() =>{
    
-
+        fetch(`/api/fetch-my-palettes/${id.userID}`, {
+            headers: { "Content-Type": "application/json" },
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data.data);
+            setPaletttesLikedByUser(data.data)
+        });
+    
+    },[])
+    
+   
     return (
     <Container>
-        {palettesToRender.map((palette)=> {
-            return <PaletteWrap>{palette.splice(0,5).map((color) => {
-                return <Color color={color}></Color>
+        {paletttesLikedByUser?.map((obj,index)=> {
+            return <PaletteWrap key={index}>{obj.palette.map((color, index) => {
+                return <Color color={color} key={color+index}></Color>
             })}</PaletteWrap>
             
         })}

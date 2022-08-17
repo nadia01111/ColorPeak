@@ -1,42 +1,42 @@
 import { useState, useEffect,useContext } from "react";
 import styled from "styled-components"
 import SavePalette from "./SavePaletteBar";
-import { ColorsContext } from "../Context/ColorsContext";
-import { palettes } from "../../assets/palettes";
+import { UsersContext } from "../Context/UsersContext";
+// import { palettes } from "../../assets/palettes";
 
 const Palettes = () => {
-
-    // const [palettes, setPalettes] = useState(null);
+  const {currentUser, savePalette, isSaved, setIsSaved} = useContext(UsersContext);
+    const [palettes, setPalettes] = useState(null);
     const [status, setStatus] = useState("loading");
     const [isLiked, setIsLiked] = useState(false);
     const [numLikes, setNumLikes] = useState(25);
 
-    // useEffect(() => {
-    //     fetch(`/api/palettes`)
-    //       .then((res) => res.json())
-    //       .then((data) => {
-    //         console.log(data.data);
-    //         setPalettes(data.data);
-    //         setStatus("loaded");
-    //       });
-    //   }, []);
+    useEffect(() => {
+        fetch("/api/palettes")
+          .then((res) => res.json())
+          .then((data) => {
+            console.log("inside palettes useEff", data.data);
+            setPalettes(data.data);
+            setStatus("loaded");
+          });
+      }, []);
 
  
 
-    // if (status === "loading") {
-    //   return <>{status}</>
-    // }
+    if (status === "loading") {
+      return <>{status}</>
+    }
     return (
     <Container>
-      <h1>Trending color palettes</h1>
+      <h2>Trending color palettes</h2>
       <h3>Get inspired! </h3>
       <Wrapper>
         {palettes?.map((palette) => {
           return (
           <Wrap>
           <PaletteWrap key={palette._id}>
-            {palette?.colors?.splice(0,5).map((color) => {
-              return <ColorWrap color={color}><ColorName>{color.substring(1)}</ColorName></ColorWrap>
+            {palette?.colors?.map((color,index) => {
+              return <ColorWrap color={color} key={color+index}><ColorName>{color.substring(1)}</ColorName></ColorWrap>
             })}
           </PaletteWrap>
           <SavePalette props={numLikes}/>
@@ -105,6 +105,7 @@ overflow:hidden;
 `;
 
 const Container = styled.div`
+padding:20px;
 display: flex;
 flex-direction: column;
 width:100vw;
