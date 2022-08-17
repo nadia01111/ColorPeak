@@ -1,18 +1,25 @@
 import { IoMdHeartEmpty,IoMdHeart } from "react-icons/io";
 import styled from "styled-components";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UsersContext } from "../Context/UsersContext";
 
-const SavePaletteBar = ({numLikes,isLiked, setIsLiked}) => {
+const SavePaletteBar = () => {
     const {currentUser, savePalette, isSaved, setIsSaved} = useContext(UsersContext);
- 
+    const [isLiked,setIsLiked] = useState(false);
+    let randomN = Math.floor(Math.random() * 200);
+    const [x, setX]= useState(randomN);
     const likeBntFunc = () => {
         setIsLiked(!isLiked);
+        if (isLiked===true) {
+            setX(x-1)
+        } else {
+            setX(x+1)
+        }
     }
     return (<Wrapper>
-    {isLiked === false ?
-    <LikeWrap onClick={likeBntFunc}><IoMdHeart/>{numLikes}</LikeWrap>:
-    <LikeWrap onClick={likeBntFunc}><IoMdHeartEmpty/>{numLikes}</LikeWrap>}
+    {isLiked ?
+    <LikeWrap onClick={likeBntFunc}><IoMdHeart/>{x}</LikeWrap>:
+    <LikeWrap onClick={likeBntFunc}><IoMdHeartEmpty/>{x}</LikeWrap>}
     </Wrapper>)
 
 }

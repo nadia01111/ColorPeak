@@ -52,6 +52,7 @@ align-items:center;
 justify-content:space-around;
 border-radius: 5px;
 :hover{
+ 
 cursor: pointer;
 background-color: lightgray;
 }

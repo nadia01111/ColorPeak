@@ -4,6 +4,7 @@ import SavePaletteBar from "./SavePaletteBar";
 import { UsersContext } from "../Context/UsersContext";
 // import { palettes } from "../../assets/palettes";
 
+
 const Palettes = () => {
   const {currentUser, savePalette, isSaved, setIsSaved} = useContext(UsersContext);
 
@@ -11,9 +12,9 @@ const Palettes = () => {
     const [palettes, setPalettes] = useState(null);
     const [status, setStatus] = useState("loading");
     
-
+    let randomN = Math.floor(Math.random() * 200);
     useEffect(() => {
-        fetch("/api/paletes")
+        fetch("/api/palettes")
           .then((res) => res.json())
           .then((data) => {
             console.log("inside palettes useEff", data.data);
@@ -40,7 +41,8 @@ const Palettes = () => {
               return <ColorWrap color={color} key={color+index}><ColorName>{color.substring(1)}</ColorName></ColorWrap>
             })}
           </PaletteWrap>
-          <SavePaletteBar numLikes={palette.isLikedBy.length} isLiked={isLiked} setIsLiked={setIsLiked}/>
+         
+          <SavePaletteBar/>
           </Wrap>
           )
         })}
@@ -95,7 +97,7 @@ letter-spacing: 0.03em;
 }
 `;
 const PaletteWrap =styled.div`
-box-sizing: border-box;
+width: 300px;
 display: flex;
 height: 100px;
 width: ;
@@ -113,11 +115,7 @@ align-items: center;
 
 `;
 const Wrap = styled.div`
-width: 45%;
-display: flex;
-flex-direction: column;
-justify-content: flex-end;
-align-items: center;
+
 
 `;
 const Wrapper = styled.div`
