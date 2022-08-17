@@ -13,6 +13,8 @@ const CreateCollage = () => {
 }
 
 const Wrapper = styled.div`
+margin:30px;
+
 `
 
 export default CreateCollage;

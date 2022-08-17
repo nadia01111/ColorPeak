@@ -1,7 +1,8 @@
 import { useState, useEffect,useContext } from "react";
-import styled from "styled-components"
+import styled, { keyframes } from "styled-components";
 import SavePaletteBar from "./SavePaletteBar";
 import { UsersContext } from "../Context/UsersContext";
+import {BiLoaderCircle} from  "react-icons/bi";
 // import { palettes } from "../../assets/palettes";
 
 
@@ -26,7 +27,9 @@ const Palettes = () => {
  
 
     if (status === "loading") {
-      return <>{status}</>
+      return <Icon>
+          <BiLoaderCircle/>
+      </Icon>
     }
     return (
     <Container>
@@ -52,6 +55,24 @@ const Palettes = () => {
     </Container>
     )
 }
+
+const turning = keyframes`
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    `;
+const Icon = styled.div`
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 49%;
+  left: 49%;
+  animation: ${turning} 1000ms infinite linear;
+`;
 
 const LikeBtn = styled.button`
 font-size: 12px;
@@ -100,7 +121,6 @@ const PaletteWrap =styled.div`
 width: 300px;
 display: flex;
 height: 100px;
-width: ;
 border-radius: 15px;
 margin: 5px;
 overflow:hidden;

@@ -17,10 +17,10 @@ const Header = () => {
     return (
         <Wrapper>
             <Div1>
-                <StyeldLink to="/"><Img src={logo} alt="logo"/> </StyeldLink>
+                <StyeldLink to="/palettes/generate"><Img src={logo} alt="logo"/> </StyeldLink>
             </Div1>
             <Div1><H1>
-            <Name to="/"><h1>Color palette generator</h1></Name>
+            <Name to="/palettes/generate"><h1>Color palette generator</h1></Name>
             {isAuthenticated? null:<Div2><h5>Sing in to save and explore palettes</h5></Div2>}
             </H1></Div1>
             
@@ -108,6 +108,12 @@ cursor: pointer;
     background-color:#f4a261;
     color: #5938ff;
   }
+  :active {
+    transform: scale(0.98);
+    
+    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+
+        }
 `;
 
 export default Header;

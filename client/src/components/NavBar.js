@@ -19,7 +19,7 @@ const NavBar = () => {
         //press the button and see new palette
         const generateNewPalette =()=> {
             fetchColors()
-            navigate("/")
+            navigate("/palettes/generate")
         };
         
 
@@ -34,7 +34,7 @@ const NavBar = () => {
         }
         {/* <Tippy content="saved palettes"><Lnk to={`/palettes/saved/${userID}`}><FcBookmark size={iconSize}/></Lnk></Tippy> */}
         <Tippy content="create palette from picture"><Lnk to="/palettes/create"><FcAddImage size={iconSize}/></Lnk></Tippy>
-        <Tippy content="explore trending palettes"><Lnk to="/palettes"><FcGrid size={iconSize}/></Lnk></Tippy>
+        <Tippy content="explore trending palettes"><Lnk to="/"><FcGrid size={iconSize}/></Lnk></Tippy>
         
         
     </Wrapper>
@@ -56,11 +56,23 @@ border-radius: 5px;
 cursor: pointer;
 background-color: lightgray;
 }
+:active {
+    transform: scale(0.98);
+    
+    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+
+        }
 `;
 
 
 const Lnk = styled(Link)`
 text-decoration:none;
+:active {
+    transform: scale(0.98);
+    
+    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+
+        }
 `;
 const NewPaletteBtn =styled.button`
 border-radius: 5px;
@@ -75,6 +87,12 @@ border: none;
 :focus {
      outline: none;
 }
+:active {
+    transform: scale(0.98);
+    
+    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+
+        }
 `;
 
 const Wrapper = styled.div`

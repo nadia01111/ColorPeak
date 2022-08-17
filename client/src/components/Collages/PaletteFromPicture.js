@@ -117,7 +117,7 @@ const PaletteFromPicture = () => {
     return (
         <Wrapper>
         <BtnWrap>
-        <input type="file" multiple accept="image/*" onChange={onImageChange}/>
+        <Input type="file" multiple accept="image/*" onChange={onImageChange}/>
         <Btn onClick={getPaletteFromPicture}>Generate Palette</Btn>
 
         </BtnWrap>
@@ -127,7 +127,7 @@ const PaletteFromPicture = () => {
         return (<ReturnWrap>
             <Wrap1>
                <ImgWrap><Img src={imageSrc}/></ImgWrap>
-               <Btn onClick={paletteToSave}>Save Palette</Btn> 
+               <SaveBtn onClick={paletteToSave}>Save Palette</SaveBtn> 
             </Wrap1>
             
             <PaletteWrap>
@@ -148,9 +148,34 @@ const PaletteFromPicture = () => {
         </Wrapper>)
 }
 
+const SaveBtn = styled.button`
+font-size: 34px;
+font-family: 'Raleway', sans-serif;
+color:#5938ff;
+font-weight: bold;
+width: 200px;
+height: 150px;
+margin-right: 30px;
+margin-left: 10px;
+text-decoration: none;
+border: 1px solid gray;
+border-radius: 3px;
+padding: 8px 6px;
+cursor: pointer;
+  :hover {
+    background-color:#f4a261;
+    color: #5938ff;
+  }
+  :active {
+    transform: scale(0.98);
+    
+    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+
+        }`;
 const ReturnWrap =styled.div`
 `;
 const Wrap1 =styled.div`
+
 display: flex;
 
 `;
@@ -171,11 +196,38 @@ const Img = styled.img`
 width: inherit;
 `;
 const Btn = styled.button`
+font-size: 16px;
+text-decoration: none;
+border: 1px solid gray;
+border-radius: 3px;
+padding: 8px 6px;
+color: #5938ff; 
+font-weight: bold;
+cursor: pointer;
+  :hover {
+    background-color:#f4a261;
+    color: #5938ff;
+  }
+
+  :active {
+    transform: scale(0.98);
+    
+    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+    }
 `;
 const BtnWrap =styled.div`
+margin: 10px;
+`;
+
+const Input = styled.input`
+
+&[type=file]{
+
+}
+
 `;
 const Wrapper = styled.div`
-margin: 20px;
+margin: 30px;
 `
 
 export default PaletteFromPicture;
