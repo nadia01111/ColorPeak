@@ -12,7 +12,7 @@ const NavBar = () => {
     const {colors, setColors,isLiked, setIsLiked,iconSize,fetchColors,btnRef} = useContext(ColorsContext);
     const {currentUser, savePalette, isSaved, setIsSaved} = useContext(UsersContext);
     const currentPalette = JSON.parse(localStorage.getItem(`currentPalette`));
-    // const [userID,setUserId] = useState(currentUser?._id);
+    const [userID,setUserId] = useState(currentUser?._id);
 
         let navigate = useNavigate();
 
@@ -32,7 +32,7 @@ const NavBar = () => {
         {isSaved? <SaveBtn onClick={savePalette}><FcLike  size={iconSize}/><span>Palette saved</span></SaveBtn>:
         <SaveBtn onClick={savePalette}><FcLikePlaceholder size={iconSize}/><span>Save palette</span></SaveBtn>
         }
-        {/* <Tippy content="saved palettes"><Lnk to={`/palettes/saved/${userID}`}><FcBookmark size={iconSize}/></Lnk></Tippy> */}
+        <Tippy content="saved palettes"><Lnk to={`/palettes/saved/${userID}`}><FcBookmark size={iconSize}/></Lnk></Tippy>
         <Tippy content="create palette from picture"><Lnk to="/palettes/create"><FcAddImage size={iconSize}/></Lnk></Tippy>
         <Tippy content="explore trending palettes"><Lnk to="/"><FcGrid size={iconSize}/></Lnk></Tippy>
         
