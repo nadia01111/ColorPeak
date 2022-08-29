@@ -1,6 +1,5 @@
 # ColorPeak
-# Concordia Bootacmo Final-Project
-
-## Color palettes generator
+## Concordia Bootacmo Final-Project
+Color palettes generator
 
 
