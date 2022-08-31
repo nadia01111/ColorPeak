@@ -5,26 +5,20 @@ import { UsersContext } from "../Context/UsersContext";
 import {BiLoaderCircle} from  "react-icons/bi";
 // import { palettes } from "../../assets/palettes";
 
-
+///component to render all saved pallets from all users. fetch  from mongo DB
 const Palettes = () => {
   const {currentUser, savePalette, isSaved, setIsSaved} = useContext(UsersContext);
-
-    const [isLiked, setIsLiked] = useState(false);
     const [palettes, setPalettes] = useState(null);
     const [status, setStatus] = useState("loading");
-    
-    let randomN = Math.floor(Math.random() * 200);
+  
     useEffect(() => {
         fetch("/api/palettes")
           .then((res) => res.json())
           .then((data) => {
-            console.log("inside palettes useEff", data.data);
             setPalettes(data.data);
             setStatus("loaded");
           });
       }, []);
-
- 
 
     if (status === "loading") {
       return <Icon>
@@ -41,11 +35,11 @@ const Palettes = () => {
           <Wrap>
           <PaletteWrap key={palette._id}>
             {palette?.palette?.map((color,index) => {
-              return <ColorWrap color={color} key={color+index}><ColorName>{color.substring(1)}</ColorName></ColorWrap>
+              return <ColorWrap color={color} key={color+index}></ColorWrap>
             })}
           </PaletteWrap>
-         
-          <SavePaletteBar/>
+          {/* <div>{palette?.isLikedBy?.length}</div> */}
+          <SavePaletteBar num ={palette?.isLikedBy?.length} paletteId={palette._id}/>
           </Wrap>
           )
         })}
@@ -99,7 +93,9 @@ display:flex;
 align-items: center;
 justify-content: center;
 text-align: center;
-
+:hover{
+  width:calc(100%/3)  ;
+}
 `;
 
 

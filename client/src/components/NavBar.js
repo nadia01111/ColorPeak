@@ -12,7 +12,7 @@ const NavBar = () => {
     const {colors, setColors,isLiked, setIsLiked,iconSize,fetchColors,btnRef} = useContext(ColorsContext);
     const {currentUser, savePalette, isSaved, setIsSaved} = useContext(UsersContext);
     const currentPalette = JSON.parse(localStorage.getItem(`currentPalette`));
-    const [userID,setUserId] = useState(currentUser?._id);
+    const [userID,setUserID] = useState(currentUser?._id);
 
         let navigate = useNavigate();
 

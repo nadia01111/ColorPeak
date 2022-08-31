@@ -12,8 +12,7 @@ const Header = () => {
     const {currentUser} = useContext(UsersContext);
     const {isAuthenticated, user, loginWithRedirect, logout} = useAuth0();
     console.log(currentUser);
- 
-      
+
     return (
         <Wrapper>
             <Div1>

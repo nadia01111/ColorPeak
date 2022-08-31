@@ -12,7 +12,8 @@ const {
     createUserMongo,
     saveGeneratedPalette,
     getSavedPalettes,
-    savePaletteFromPicture
+    savePaletteFromPicture,
+    likePalette
 } = require("./handlers");
 
 const {colorRecognize,
@@ -44,6 +45,7 @@ express()
 .post("/api/save-palette-from-picture", savePaletteFromPicture)
 
 .patch("/api/save-palette",saveGeneratedPalette)
+.patch("/api/like-palette",likePalette)
 
 
 

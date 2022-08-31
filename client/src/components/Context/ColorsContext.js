@@ -20,7 +20,6 @@ const { v4: uuidv4 } = require("uuid");
         /// generates the random palette on HomePage using API
             const fetchColors = async function getColors () {
                 setIsSaved(false);
-                console.log("in fetch");
                 const response = await fetch('/api/randome-palette');
                 const fetchedColors = await response.json();
                 const check = fetchedColors.data.every(color => typeof color === 'string');

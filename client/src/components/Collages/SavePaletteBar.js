@@ -1,25 +1,38 @@
 import { IoMdHeartEmpty,IoMdHeart } from "react-icons/io";
 import styled from "styled-components";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { UsersContext } from "../Context/UsersContext";
 
-const SavePaletteBar = () => {
+const SavePaletteBar = ({num,paletteId}) => {
     const {currentUser, savePalette, isSaved, setIsSaved} = useContext(UsersContext);
     const [isLiked,setIsLiked] = useState(false);
-    let randomN = Math.floor(Math.random() * 200);
-    const [x, setX]= useState(randomN);
+    const [likeNum, setLikeNum]= useState(num);
+
+    useEffect(() => {
+
+    },[likeNum])
+
     const likeBntFunc = () => {
         setIsLiked(!isLiked);
-        if (isLiked===true) {
-            setX(x-1)
-        } else {
-            setX(x+1)
-        }
+        
+        if (currentUser) {
+            fetch("api/like-palette", {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({_id:paletteId, currentUser:currentUser._id, isLiked})
+            })
+            .then((res) => res.json())
+            .then((data) => {
+            console.log(data.data);
+            });
+            }
     }
+
+
     return (<Wrapper>
     {isLiked ?
-    <LikeWrap onClick={likeBntFunc}><IoMdHeart/>{x}</LikeWrap>:
-    <LikeWrap onClick={likeBntFunc}><IoMdHeartEmpty/>{x}</LikeWrap>}
+    <LikeWrap onClick={likeBntFunc}><IoMdHeart/>{likeNum}</LikeWrap>:
+    <LikeWrap onClick={likeBntFunc}><IoMdHeartEmpty/>{likeNum}</LikeWrap>}
     </Wrapper>)
 
 }

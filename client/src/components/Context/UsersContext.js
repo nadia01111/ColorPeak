@@ -13,7 +13,7 @@ export const UsersContext = createContext(null);
         const {colors, isSaved, setIsSaved} = useContext(ColorsContext);
         useEffect(() => {
             const addUserToMongo = async () => {
-                console.log("in use effect", isAuthenticated)
+            
               if (isAuthenticated) {
                   await fetch("/api/user/create-user", {
                     method: "POST", 

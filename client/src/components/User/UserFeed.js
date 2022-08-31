@@ -58,5 +58,8 @@ const Color = styled.div`
 background-color: ${props => props.color ? props.color : "none"};
 width: calc(100%/5);
 height:100%;
+:hover{
+  width:calc(100%/3)  ;
+}
 `;
 export default UserFeed;
