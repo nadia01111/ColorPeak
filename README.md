@@ -1,7 +1,8 @@
 
 # ColorPeak web app
 
-![logo](https://github.com/nadia01111/Final-Project/raw//Users/nadi/ColorPeak/Final-Project/client/src/assets/logo.png)
+![logo](https://github.com/nadia01111/Final-Project/raw/master/Final-Project/client/src/assets/logo.png)
+
 
 ---
 ## About this app
