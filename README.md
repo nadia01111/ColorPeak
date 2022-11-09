@@ -8,6 +8,8 @@
 
 This app is a color palette generator. The user could upload an image and receive the primary colors of this picture as a color palette. He also could get a randomly generated 5-colors palette. Palettes are stored in the database and can be viewed and saved by logged users.
 
+![hp](client/src/assets/screenshots/hp.jpg)
+
 ## Technologies used
 
 Front end: React.js
