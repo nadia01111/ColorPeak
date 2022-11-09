@@ -1,5 +1,7 @@
 
 # ColorPeak web app
+
+![logo](/Users/nadi/ColorPeak/Final-Project/client/src/assets/logo.png)
 ---
 ## About this app
 
@@ -8,7 +10,12 @@ This app is a color palette generator. The user could upload an image and receiv
 ## Technologies used
 
 Front end: React.js
-Back end: Node.js, MongoDB for data storage, Auth0 API for user authentication, Google vision API for image analysis, Pexels API for random palette generation. 
+Back end: 
+1. Node.js
+2. MongoDB for data storage
+3. Auth0 API for user authentication
+4. Google vision API for image analysis
+5. Pexels API for random palette generation
 
 ## Home page
 
