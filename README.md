@@ -1,7 +1,8 @@
 
 # ColorPeak web app
 
-![logo](/Users/nadi/ColorPeak/Final-Project/client/src/assets/logo.png)
+![logo](https://github.com/nadia01111/Final-Project/raw/client/src/assets/logo.png)
+
 ---
 ## About this app
 
@@ -10,6 +11,7 @@ This app is a color palette generator. The user could upload an image and receiv
 ## Technologies used
 
 Front end: React.js
+
 Back end: 
 1. Node.js
 2. MongoDB for data storage
