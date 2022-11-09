@@ -38,7 +38,7 @@ If the user has an image for the palette reference, he could upload it, press th
 
 The user could create an account or log in using gmail account. Authentication through Auth0 technology.
 
-![login](client/src/assets/screenshots/demolk.gif)
+![login](client/src/assets/screenshots/auth0.gif)
 
 ## Save the palette
 
