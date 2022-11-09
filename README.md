@@ -46,4 +46,4 @@ All palettes created or saved/liked by the user will be displayed in his profile
 
 ![login](client/src/assets/screenshots/demolk.gif)
 
-###test
+
