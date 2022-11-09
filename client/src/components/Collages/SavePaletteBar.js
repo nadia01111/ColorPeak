@@ -14,7 +14,7 @@ const SavePaletteBar = ({num,paletteId}) => {
 
     const likeBntFunc = () => {
         setIsLiked(!isLiked);
-        
+        setLikeNum(likeNum+1);
         if (currentUser) {
             fetch("api/like-palette", {
                 method: "PATCH",

@@ -16,10 +16,10 @@ const Header = () => {
     return (
         <Wrapper>
             <Div1>
-                <StyeldLink to="/palettes/generate"><Img src={logo} alt="logo"/> </StyeldLink>
+                <StyeldLink to="/"><Img src={logo} alt="logo"/> </StyeldLink>
             </Div1>
             <Div1><H1>
-            <Name to="/palettes/generate"><h1>Color palette generator</h1></Name>
+            <Name to="/"><h1>Color palette generator</h1></Name>
             {isAuthenticated? null:<Div2><h5>Sing in to save and explore palettes</h5></Div2>}
             </H1></Div1>
             

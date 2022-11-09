@@ -34,7 +34,7 @@ const NavBar = () => {
         }
         <Tippy content="saved palettes"><Lnk to={`/palettes/saved/${userID}`}><FcBookmark size={iconSize}/></Lnk></Tippy>
         <Tippy content="create palette from picture"><Lnk to="/palettes/create"><FcAddImage size={iconSize}/></Lnk></Tippy>
-        <Tippy content="explore trending palettes"><Lnk to="/"><FcGrid size={iconSize}/></Lnk></Tippy>
+        <Tippy content="explore trending palettes"><Lnk to="/palettes"><FcGrid size={iconSize}/></Lnk></Tippy>
         
         
     </Wrapper>

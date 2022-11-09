@@ -19,7 +19,7 @@ const App = () => {
       <Header />
       <NavBar/>
       <Routes>
-        <Route path="/" element={<Palettes/>}/>
+        <Route path="/" element={<HomePage/>}/>
         <Route path="/users/:userID" element={<UserPage/>}/>
         <Route path="/palettes" element={<Palettes/>}/>
         <Route path="/palettes/saved/:userID" element={<UserFeed/>}/>

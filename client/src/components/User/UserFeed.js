@@ -1,31 +1,37 @@
-import styled from "styled-components"
+import styled, { keyframes } from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import { UsersContext } from "../Context/UsersContext";
 import { ColorsContext } from "../Context/ColorsContext";
 import { useParams } from "react-router-dom";
+import {BiLoaderCircle} from  "react-icons/bi";
 
-const UserFeed = () => {
+const UserFeed = ({savedPalettes}) => {
     const [paletttesLikedByUser, setPaletttesLikedByUser] = useState([])
     const {currentUser} = useContext(UsersContext);
+    const [status, setStatus] = useState("loading");
     const id = useParams();
   
-    const savedPalettes = currentUser.savedPalettes;
-    console.log(savedPalettes);
+   
     
     useEffect(() =>{
-   
         fetch(`/api/fetch-my-palettes/${id.userID}`, {
             headers: { "Content-Type": "application/json" },
         })
         .then((res) => res.json())
         .then((data) => {
             console.log(data.data);
-            setPaletttesLikedByUser(data.data)
+            setPaletttesLikedByUser(data.data);
+            setStatus("loaded")
         });
     
-    },[])
-    
-   
+    },[savedPalettes])
+    console.log(paletttesLikedByUser);
+    if (status === "loading") {
+        return <Icon>
+            <BiLoaderCircle/>
+        </Icon>
+      }
+
     return (
     <Container>
         {paletttesLikedByUser?.map((obj,index)=> {
@@ -61,5 +67,23 @@ height:100%;
 :hover{
   width:calc(100%/3)  ;
 }
+`;
+
+const turning = keyframes`
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    `;
+const Icon = styled.div`
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 49%;
+  left: 49%;
+  animation: ${turning} 1000ms infinite linear;
 `;
 export default UserFeed;

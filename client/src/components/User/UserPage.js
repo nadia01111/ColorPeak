@@ -9,8 +9,9 @@ import { ColorsContext } from "../Context/ColorsContext";
 import UserFeed from "./UserFeed";
 
 const UserPage = () => {
-// console.log(user);
+// console.log("user");
     const {currentUser} = useContext(UsersContext);
+    console.log(currentUser);
     return (
     <Wrapper>
 

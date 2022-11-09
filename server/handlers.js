@@ -157,7 +157,7 @@ const getAllPalettes = async (req,res) => {
     try{
       const db = client.db("ColorPeak");
       await client.connect();
-      console.log(" getSavedPalettes connected");
+      console.log("getSavedPalettes connected");
       const _id = req.params.id;
       // console.log(_id);
 
@@ -188,7 +188,7 @@ const getAllPalettes = async (req,res) => {
       const savePalette = await db.collection("palettes_saved").insertOne({_id,palette, isLikedBy});
       const addPaletteToUser =  await db.collection("usersMongo").updateOne(
         {_id: isLikedBy},
-        {$pull: { savedPalettes: _id}}
+        {$push: { savedPalettes: _id}}
         ) 
       
       res.status(200).json({status:200, data:_id , message: "new palette saved"});
@@ -213,6 +213,9 @@ const likePalette = async (req,res) => {
       const addLikeToPaltte =  await db.collection("palettes_saved").updateOne(
         {_id: _id},
         {$push: { isLikedBy: currentUser}})
+        // if (addLikeToPaltte.modifiedCount = 1 || addLikeToPaltte.acknowledged === true) {
+        //   res.status(500).json({status:500, message: err.stack})
+        // }
       } else {
       const removeLikeFromPaltte =  await db.collection("palettes_saved").updateOne(
           {_id: _id},
