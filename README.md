@@ -28,7 +28,6 @@ The main page has a navigation bar and immediately gives the user a randomly gen
 
 ![hp gif](client/src/assets/screenshots/homepage.gif)
 
-
 ## Extract the palette from the image
 
 If the user has an image for the palette reference, he could upload it, press the «Generate palette» button, and enjoy the generated palette.
@@ -37,13 +36,14 @@ If the user has an image for the palette reference, he could upload it, press th
 
 ## Log in
 
-The user could create an account or log in using gmail account. Authentication through Auth0 technology. 
+The user could create an account or log in using gmail account. Authentication through Auth0 technology.
 
-![login](/Users/nadi/ColorPeak/Final-Project/client/src/assets/screenshots/demolk.gif)
+![login](client/src/assets/screenshots/demolk.gif)
 
 ## Save the palette
 
-All palettes created or saved/liked by the user will be displayed in his profile. 
-
+All palettes created or saved/liked by the user will be displayed in his profile.
 
 ![login](client/src/assets/screenshots/demolk.gif)
+
+###test
