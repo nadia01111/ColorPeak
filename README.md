@@ -3,6 +3,8 @@
 
 ![logo](https://github.com/nadia01111/Final-Project/raw/master/Final-Project/client/src/assets/logo.png)
 
+<!-- <img src='frontend/src/assets/screenshots/header.png' style='width:100%' /> -->
+<img src='client/src/assets/logo.png' style='width:100%' />
 
 ---
 ## About this app
